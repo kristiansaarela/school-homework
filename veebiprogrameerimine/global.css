@@ -1,0 +1,116 @@
+@font-face {
+	font-family: new;
+	src: url('Corleone.ttf');
+}
+body {
+	padding: 24px;
+	font: 14px Arial;
+	text-transform: capitalize;
+}
+
+#wrapper {
+	width: 450px;
+	margin: auto;
+}
+
+h1 {
+	font: 34px new;
+	text-shadow: 2px 2px 2px #ccc;
+}
+
+h2 {
+	font-weight: bold;
+}
+
+li {
+	margin: 12px;
+	border: 1px solid #dadada;
+	width: 420px;
+}
+
+li div {
+	background-color: #f0f0f0;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #dadada;
+	position: relative;
+	height: 25px;
+}
+
+li div p {
+	position: absolute;
+	right: 8px;
+	top: 5px;
+	color: #bbb;
+	font-size: 11px;
+}
+
+li div h2 {
+	position: absolute;
+	top: 4px;
+	left: 8px;
+}
+
+li > p {
+	background: #f9f9f9;
+	border-top: 1px solid #fff;
+	padding: 4px 8px;
+	text-transform: none;
+}
+
+li label[for^='minus'] {
+	color: red;
+}
+
+li label[for^='plus'] {
+	color: green;
+}
+
+form {
+	border-top: 1px solid #ccc;
+	padding: 12px 30px;
+}
+
+form p {
+	margin-bottom: 8px;
+}
+
+form input[type='text'], form textarea {
+	padding: 1px 2px;
+	border: 1px solid;
+	border-color: #aaa #ccc #ccc #aaa;
+	font: 14px Arial;
+	-moz-border-radius: 4px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .20);
+}
+
+form input[type='text']:hover, form textarea:hover {
+	border-color: #555;
+}
+
+form input[type='text']:focus, form textarea:focus {
+	/*outline: 2px solid #6c3;*/
+	border-color: #158;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .50);
+}
+
+form input[type='submit'] {
+	padding: 2px 8px;
+	color: #eee;
+	border: 1px solid #555;
+	background-color: #158;
+	-moz-border-radius: 4px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .50);
+	margin-left: 86px;
+}
+
+form input[type='submit']:hover {
+	color: #158;
+	background-color: #eee;
+}
+
+form label {
+	display: inline-block;
+	width: 80px;
+	vertical-align: top;
+	text-align: right;
+}

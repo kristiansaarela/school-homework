@@ -1,0 +1,75 @@
+AB optimeerimine
+
+
+1. Kontrolli, kas Sinu andmebaasis on olemas tabelid City, Country ja CountryLanguage (näidisandmebaas "World").
+
+2. Vaata tabelites olevaid andmeid ja tabeli struktuuride kirjeldusi ning kuidas on tabelid omavahel seotud.
+
+3. Kas tabelitel on juba lisatud indeksid? Kui jah? Siis, millised? 
+city.id
+country.code
+countrylanguage.countrycode
+countrylanguage.language
+
+Järgnevate päringute tegemisel ära kasuta päringutulemuste piiramist. Too mõlemad variandid nii joini kui ka tavalise seostamisega
+
+4. Väljasta linnad ja riigid, kus nad asuvad.
+4079 rows in set (0.01 sec)
+
+mysql> select l.Name as Linna_nimi, l.District as rajoon, r.Name as riik, r.Continent as kontinent from City as l, Country as r where l.CountryCode = r.Code;
+
+
+4079 rows in set (0.01 sec)
+
+mysql> select l.Name as Linna_nimi, l.District as rajoon, r.Name as riik, r.Continent as kontinent from City l inner join Country r on l.CountryCode = r.Code;
+
+
+5. Leia mitu linna asub igas riigis.
+232 rows in set (0.01 sec)
+
+mysql> select r.Name, count(ID) from City l, Country r where r.Code = l.CountryCode group by r.Name;
+
+
+232 rows in set (0.00 sec)
+
+mysql> select r.Name, count(ID) from City l inner join Country r on r.Code = l.CountryCode group by r.Name;
+
+6. Leia mitu linna asub igas riigis, järjesta tulemus linnade arvu järgi kahanevalt.
+232 rows in set (0.00 sec)
+
+mysql> select r.Name, count(ID) from City l, Country r where r.Code = l.CountryCode group by r.Name order by count(ID) desc;
+
+
+232 rows in set (0.01 sec)
+
+mysql> select r.Name, count(ID) from City l inner join Country r on r.Code = l.CountryCode group by r.Name order by count(ID);
+
+7. Leia mitu linna asub igas riigis, järjesta tulemus linnade arvu järgi kahanevalt, näita ainult nende riikide andmeid, kus on rohkem kui 1 linn.
+147 rows in set (0.01 sec)
+
+mysql> select r.Name, count(ID) from City l inner join Country r on r.Code = l.CountryCode group by r.Name having count(ID) > 1 order by count(ID) desc;
+
+
+147 rows in set (0.01 sec)
+
+mysql> select r.Name, count(ID) from City l, Country r where r.Code = l.CountryCode group by r.Name having count(ID) > 1 order by count(ID) desc;
+
+8. Kas päringutele 6-8 kulus palju aega? Põhjenda, miks kulus või ei kulunud palju aega.
+ei kulunud. ajad varieeruvad ning kui mite korda proovida saaks ehk kõik tulemused kätte 0.00 sekundiga. andmeid peaks rohem olema et asjast sotti saada.
+
+9. Leia linnad, riigid ja nendes riikides räägitav keel. 
+30670 rows in set (0.00 sec)
+
+mysql> select l.Name, r.Name, k.Language from City l, Country r, CountryLanguage k where l.CountryCode = r.Code and k.CountryCode = r.Code;
+
+30677 rows in set (0.00 sec)
+
+mysql> select l.Name, r.Name, k.Language from Country r left join City l on l.CountryCode = r.Code left join CountryLanguage k on k.CountryCode = r.Code;
+
+
+10. Kuidas saaks eelmisele päringule kulunud aega vähendada?
+0.00 peaks olema piisavalt kiire aga lisada näiteks indexeid. ja kasutada puhvrit.
+
+
+
+

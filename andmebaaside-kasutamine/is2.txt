@@ -1,0 +1,36 @@
+mysql> create table bbb(
+    -> b_nr int(2),
+    -> kuupaev varchar(15),
+    -> a_nr int(1));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create table aaa(
+    -> a_nr int(1),
+    -> tekst varchar(20));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from aaa;
++------+-------+
+| a_nr | tekst |
++------+-------+
+|    1 | NULL  | 
+|    2 | NULL  | 
+|    3 | NULL  | 
+|    4 | NULL  | 
+|    5 | NULL  | 
++------+-------+
+
+
+mysql> select * from bbb;
++------+------------+------+
+| b_nr | kuupaev    | a_nr |
++------+------------+------+
+|   23 | 01.08.2008 |    3 | 
+|   24 | 02.08.2008 |    3 | 
+|   25 | 03.08.2008 |    2 | 
+|   26 | 04.08.2008 |    5 | 
+|   27 | 05.08.2008 |    5 | 
++------+------------+------+
+5 rows in set (0.00 sec)
+
+select aaa.a_nr, aaa.tekst from aaa, bbb join(bbb.kuupaev, aaa.tekst) on (bbb.kuupaev = aaa.tekst) where bbb.a_nr = aaa.a_nr;

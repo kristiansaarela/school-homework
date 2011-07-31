@@ -1,0 +1,228 @@
+Ülesanded funktsioonide kohta
+
+Vaata veebilehelt
+http://www.java2s.com/
+Procedure Function
+
+näidet 11.3.5
+
+1. Loo funktsioon, mis etteantud reaalarvu (3 kohta peale koma) ümardab reaalarvuks, millel on 2 kohta peale koma.
+
+Database changed
+mysql> delimiter //
+mysql> create function kaks(nr decimal(10,3))
+    -> returns decimal(10,2)
+    -> begin
+    -> return round(nr, 2);
+    -> end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select kaks(548411.333);
+    -> //
++------------------+
+| kaks(548411.333) |
++------------------+
+|        548411.33 |
++------------------+
+1 row in set (0.01 sec)
+
+
+näide 11.1.4
+
+2. Muuda eelnevat näidet, et see väljastaks tabelist SYNNID: ema_id ja selle esinemiste arvu tabelis.
+mysql> create function synn(emaid int) returns int reads sql data begin declare id int; select distinct count(*) into id from SYNNID where Ema_id = emaid; return id; end//
+mysql> select ema_id,synn(ema_id) from SYNNID group by ema_id//
++--------+--------------+
+| ema_id | synn(ema_id) |
++--------+--------------+
+|      1 |            1 |
+|      2 |            1 |
+|      3 |            1 |
+|      4 |            1 |
+|      5 |            1 |
+|      6 |            1 |
+|      7 |            1 |
+|      8 |            2 |
+|      9 |            1 |
+|     10 |            1 |
+|     11 |            1 |
+|     12 |            1 |
+|     13 |            1 |
+|     14 |            1 |
+|     15 |            1 |
+|     16 |            1 |
+|     17 |            1 |
+|     18 |            1 |
+|     19 |            1 |
+|     20 |            1 |
+|     21 |            1 |
+|     22 |            1 |
+|     23 |            1 |
+|     24 |            1 |
+|     25 |            1 |
+|     26 |            1 |
+|     27 |            1 |
+|     28 |            1 |
+|     29 |            1 |
+|     30 |            1 |
+|     31 |            1 |
+|     32 |            1 |
+|     33 |            1 |
+|     34 |            1 |
+|     35 |            1 |
+|     36 |            1 |
+|     37 |            1 |
+|     38 |            1 |
+|     39 |            1 |
+|     40 |            1 |
+|     41 |            1 |
+|     42 |            1 |
+|     43 |            1 |
+|     44 |            1 |
+|     45 |            1 |
+|     46 |            1 |
+|     47 |            1 |
+|     48 |            1 |
+|     49 |            1 |
+|     50 |            2 |
++--------+--------------+
+50 rows in set (0.00 sec)
+
+3. Kasutades näidet 11.1.4 loo funktsioon, mis leiab mitu last on igal kuupäeval sündinud.Tulemuse väljastamiseks kasuta select-päringut.
+create function laps(sy time) returns int reads sql data begin declare kooku int; select count(*) into kooku from SYNNID where Synniaeg = sy; return (kooku); end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select Synniaeg, laps(Synniaeg) from SYNNID group by Synniaeg;
+    -> //
++----------+----------------+
+| Synniaeg | laps(Synniaeg) |
++----------+----------------+
+| 00:12:00 |              1 |
+| 00:15:00 |              1 |
+| 00:53:00 |              1 |
+| 01:13:00 |              1 |
+| 01:27:00 |              1 |
+| 01:37:00 |              1 |
+| 01:43:00 |              1 |
+| 02:52:00 |              1 |
+| 03:05:00 |              1 |
+| 03:15:00 |              1 |
+| 03:22:00 |              1 |
+| 03:28:00 |              1 |
+| 04:05:00 |              1 |
+| 04:55:00 |              1 |
+| 05:02:03 |              1 |
+| 05:20:00 |              1 |
+| 06:05:00 |              1 |
+| 06:18:00 |              1 |
+| 07:58:00 |              1 |
+| 09:15:00 |              1 |
+| 09:17:00 |              1 |
+| 09:35:00 |              1 |
+| 10:54:00 |              1 |
+| 11:17:00 |              1 |
+| 11:33:00 |              1 |
+| 12:23:00 |              1 |
+| 12:50:00 |              1 |
+| 13:08:00 |              1 |
+| 13:36:00 |              1 |
+| 13:41:00 |              1 |
+| 14:49:00 |              1 |
+| 14:51:00 |              1 |
+| 14:55:00 |              1 |
+| 15:22:00 |              1 |
+| 15:41:00 |              1 |
+| 17:21:00 |              1 |
+| 17:43:00 |              1 |
+| 18:27:00 |              1 |
+| 18:28:00 |              1 |
+| 19:06:00 |              1 |
+| 19:25:00 |              1 |
+| 19:42:00 |              1 |
+| 20:08:00 |              1 |
+| 20:27:00 |              1 |
+| 20:51:00 |              1 |
+| 20:56:00 |              1 |
+| 22:44:00 |              1 |
+| 22:59:00 |              1 |
+| 23:09:00 |              1 |
+| 23:15:00 |              1 |
+| 23:42:00 |              1 |
+| 23:47:00 |              1 |
++----------+----------------+
+52 rows in set (0.01 sec)
+
+4. Loo funktsion, mis etteantud kuupäeva (nt 2008-11-25) muudab eestipäraseks (nt 25.11.2008). Kasuta MySql kuupäeva funktsiooni date_format oma funktsiooni tegemisel. Tulemuse väljastamiseks kasuta select-päringut.
+mysql> create function eestiparaseks(aeg date) returns varchar(20) begin return date_format(aeg, '%e.%c.%Y'); end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select eestiparaseks('2010-12-25')//
++-----------------------------+
+| eestiparaseks('2010-12-25') |
++-----------------------------+
+| 25.12.2010                  |
++-----------------------------+
+1 row in set (0.00 sec)
+
+5. Loo funktsioon, mis etteantud kuupäeva (nt Synnikuupaev) järgi leiab vanuse. Tulemuse väljastamiseks kasuta select-päringut.
+ysql> create function duud(kuup date) returns varchar(20) begin return year(now())-year(kuup); end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select duud(Synnikuupaev) from SYNNID//
++--------------------+
+| duud(Synnikuupaev) |
++--------------------+
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 3                  |
+| 4                  |
++--------------------+
+52 rows in set (0.01 sec)

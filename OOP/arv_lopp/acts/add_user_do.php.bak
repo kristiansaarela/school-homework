@@ -1,0 +1,77 @@
+<?php
+
+$kasutaja_nimi = $http->get('kasutaja_nimi');
+$parool = $http->get('parool');
+$parool2 = $http->get('parool_uuesti');
+$email = $http->get('email');
+
+//echo 'kn = '.$kasutaja_nimi.'<br />';
+//echo 'p = '.$parool.'<br />';
+
+/*$sql = "SELECT * FROM kasutajad WHERE kasutaja_nimi='".$kasutaja_nimi."'";
+$res = $db->getArray($sql);*/
+/*
+echo '<pre>';
+print_r($res);
+echo '</pre>';
+echo '<br />';
+*/
+
+//juhul, kui kasutaja puudub
+if($res == false)
+{
+	if($parool == $parool2 and strlen($parool) > 5)
+	{
+		$sql = "insert into kasutajad (kasutaja_nimi, parool, email) values ('".$kasutaja_nimi."',md5('".$parool."'),'".$email."')";
+		$res = $db->query($sql);
+		$sql = "SELECT * FROM kasutajad WHERE kasutaja_nimi='".$kasutaja_nimi."' AND parool='".md5($parool)."'";
+		$res = $db->getArray($sql);
+		$sess->createSession($res[0]);
+		$main_tmpl->add('sisu', 'Logisid sisse nagu <b>'.$sess->user_data['kasutaja_nimi'].'</b><br />');
+
+		//genereerime menüü eraldi failist
+		#require_once(BASE_DIR.'menu.php');
+
+		//lisame menüü template sisse
+		$main_tmpl->add('sisu', $menu->parse());
+		$main_tmpl->add('sisu', '<b>'.$kasutaja_nimi.'</b> on lisatud. võid nüüd sisse logida');
+
+		//genereerime menüü eraldi failist
+		#require_once(BASE_DIR.'menu.php');
+
+		//lisame menüü template sisse
+		#$main_tmpl->add('sisu', $menu->parse());
+	}
+	else
+	{
+		$main_tmpl->add('sisu', "paroolid ei klapi või on liiga lühike");
+	}
+	/*$link = $http->getLink(array('act'=>'login'), array('username'));
+	//$main_tmpl->add('sisu', $link);
+	$http->redirect($link);*/
+}
+else
+{
+	$main_tmpl->add('sisu', "kasutaja nimi juba olemas. vali mõni teine");
+	/*$link = $http->getLink(array('act'=>'login'), array('username'));
+	//$main_tmpl->add('sisu', $link);
+	$http->redirect($link);*/
+	//loome kasutaja andmetega sessioon ja laseme ta kasutama rakenduse
+	
+	/*$sess->createSession($res[0]);*/
+/*
+	echo '<pre>';
+	print_r($sess);
+	echo '</pre>';
+	echo '<br />';
+*/
+	/*$main_tmpl->add('sisu', 'Logisid sisse nagu <b>'.$sess->user_data['kasutaja_nimi'].'</b><br />');
+
+	//genereerime menüü eraldi failist
+	require_once(BASE_DIR.'menu.php');
+
+	//lisame menüü template sisse
+	$main_tmpl->add('sisu', $menu->parse());*/
+}
+
+?>

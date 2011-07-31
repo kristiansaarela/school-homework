@@ -1,0 +1,227 @@
+Päringud SQL-is
+
+Käsud (alates 3. ülesandest), mida sisestad MySql-is kopeeri ka siia töölehele.
+
+1. Loo tabel RAAMAT.
+2. Sisesta andmed tabelisse RAAMAT vt faili raamatud.txt
+3. Väljasta kogu tabeli RAAMAT andmed.
+mysql> select * from RAAMAT;
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri           | Autor            | Aasta | Koht            | Lk_arv | Keel      | Hind |
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+|          1 | Asum               | Isaac Asimov     |  1976 | Eesti kirjastus |    193 | eesti     |   35 | 
+|          2 | Ajaseemned         | Isaac Asimov     |  1978 | Eesti kirjastus |    258 | eesti     |   38 | 
+|          3 | Frankestein        | Mary Shelly      |  1968 | Eesti kirjastus |    189 | eesti     |   29 | 
+|          4 | Tde ja igus        | A.H.Tammsaare    |  1920 | Tallinn         |    459 | eesti     |  235 | 
+|          5 | Kevade             | Oskar Luts       |  1945 | Tallinn         |    268 | eesti     |   46 | 
+|          6 | Daam sinises       | T.Trubetski      |  1986 | Tallinn         |    137 | eesti     |   25 | 
+|          7 | Mina ja George     | T.Trubetski      |  1988 | Tallinn         |    153 | eesti     |   38 | 
+|          8 | Kitumise anatoomia | Sigmund Freud    |  1997 | Tallinn         |      5 | eesti     |  395 | 
+|          9 | Konstitutsioon     | J.Stalin         |  1944 | Tallinn         |    287 | eesti     |   56 | 
+|         10 | Rahvasbrad         | V.I.Lenin        |  1951 | Tallinn         |    176 | eesti     |   23 | 
+|         11 | Leninismi alustest | J.Stalin         |  1945 | Tallinn         |    357 | eesti     |   65 | 
+|         12 | Pimeduse pahem ksi | U.K.LeQuine      |  1975 | Tallinn         |    198 | eesti     |   55 | 
+|         13 | Mis teha           | J.K.Ibin         |  1950 | Tallinn         |    175 | eesti     |   43 | 
+|         14 | Surnud hinged      | Nikolai Kogol    |  1977 | Tallinn         |    298 | eesti     |   55 | 
+|         15 | Kalevipoeg         | A.Kivirhk        |  1997 | Tallinn         |      2 | eesti     |   60 | 
+|         16 | Massi ebajumal     | V.Lcis           |  1989 | Tallinn         |    376 | eesti     |   75 | 
+|         17 | Inimesed maskides  | V.Lcis           |  1989 | Tallinn         |    245 | eesti     |  130 | 
+|         18 | Hiline kevad       | V.Lcis           |  1989 | Tallinn         |    298 | eesti     |   89 | 
+|         19 | Testament          | Rex Stout        |  1986 | Tallinn         |    187 | eesti     |  115 | 
+|         20 | Pioneerid          | J.F.Cooper       |  1973 | Tallinn         |    398 | eesti     |    1 | 
+|         21 | Surma ratsanikud   | M.Kivistik       |  1992 | Tallinn         |    287 | eesti     |    1 | 
+|         22 | Kana ja muna       | Kait Marandi     |  1996 | Tartu Helmes    |      2 | jaapani   |  450 | 
+|         23 | Naksitrallid       | Ellen Niit       |  1980 | Tartu           |    150 | eesti     |   45 | 
+|         24 | Arvuti A ja B      | Rein Hanson      |  1978 | USA             |      7 | inglise   |   23 | 
+|         25 | Kasuema            | Silvia Rannamaa  |  1923 | Valga           |    145 | eesti     |   45 | 
+|         26 | Kunksmoor          | Aino Perg        |  1966 | Tartu           |     67 | eesti     |   75 | 
+|         27 | Arabella           | Aino Pervik      |  1985 | Tallinn         |    187 | eesti     |  876 | 
+|         28 | Bullerby lapsed    | Astrid Lindgren  |  1982 | Rootsi          |    199 | rootsi    |   26 | 
+|         29 | Muumitrollid       | Tove Janson      |  1998 | Norra           |      4 | norra     |   77 | 
+|         30 | Ja pike tuseb      | Hernst Hemingway |  1938 | USA             |    234 | inglise   |  327 | 
+|         31 | Vanamees ja meri   | Hernst Hemingway |  1964 | USA             |    312 | inglise   |   83 | 
+|         32 | 10 aastat hiljem   | Alexander Dumas  |  1955 | Pariis          |    183 | prantsuse |  821 | 
+|         33 | Nukitsamees        | Oskar Luts       |  1977 | Tallinn         |     87 | eesti     |   32 | 
+|         34 | Soo                | Oskar Luts       |  1971 | Tartu           |     56 | eesti     |   45 | 
+|         35 | Vari               | Juhan Liiv       |  1928 | Tartu           |    287 | eesti     |   63 | 
+|         36 | Vares              | Jri Tuulik       |  1948 | Tallinn         |    253 | eesti     |   72 | 
+|         37 | Kevade             | Oskar Luts       |  1997 | Tartu           |    188 | eesti     |   33 | 
+|         38 | Suvi               | Oskar Luts       |  1988 | Narva           |    162 | eesti     |   79 | 
+|         39 | Sda ja rahu        | Lev Tolstoi      |  1963 | Moskva          |    645 | vene      |  143 | 
+|         40 | Kurit ja karistus  | Dostojevski      |  1973 | Moskva          |    487 | vene      |   52 | 
+|         41 | Saladuslik saar    | Jules Verne      |  1956 | Pariis          |    682 | eesti     |   62 | 
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+41 rows in set (0.00 sec)
+4. Väljasta nende raamatute pealkirjad, autorid ja ilmumisaastad, mis on ilmunud enne 1950 aastat. Mitu neid on?
+mysql> select Pealkiri, Autor, Aasta from RAAMAT where Aasta < 1950;
++--------------------+------------------+-------+
+| Pealkiri           | Autor            | Aasta |
++--------------------+------------------+-------+
+| Tde ja igus        | A.H.Tammsaare    |  1920 | 
+| Kevade             | Oskar Luts       |  1945 | 
+| Konstitutsioon     | J.Stalin         |  1944 | 
+| Leninismi alustest | J.Stalin         |  1945 | 
+| Kasuema            | Silvia Rannamaa  |  1923 | 
+| Ja pike tuseb      | Hernst Hemingway |  1938 | 
+| Vari               | Juhan Liiv       |  1928 | 
+| Vares              | Jri Tuulik       |  1948 | 
++--------------------+------------------+-------+
+8 rows in set (0.00 sec)
+
+5. Väljasta nende raamatute pealkirjad, autorid, ilmumisaastad ja keel, mis on ilmunud peale 1987 aastat. Millistes keeltes on raamatud ilmunud peale 1987 aastat?
+mysql> select Pealkiri, Autor, Aasta, Keel  from RAAMAT where Aasta > 1987;
++--------------------+---------------+-------+---------+
+| Pealkiri           | Autor         | Aasta | Keel    |
++--------------------+---------------+-------+---------+
+| Mina ja George     | T.Trubetski   |  1988 | eesti   | 
+| Kitumise anatoomia | Sigmund Freud |  1997 | eesti   | 
+| Kalevipoeg         | A.Kivirhk     |  1997 | eesti   | 
+| Massi ebajumal     | V.Lcis        |  1989 | eesti   | 
+| Inimesed maskides  | V.Lcis        |  1989 | eesti   | 
+| Hiline kevad       | V.Lcis        |  1989 | eesti   | 
+| Surma ratsanikud   | M.Kivistik    |  1992 | eesti   | 
+| Kana ja muna       | Kait Marandi  |  1996 | jaapani | 
+| Muumitrollid       | Tove Janson   |  1998 | norra   | 
+| Kevade             | Oskar Luts    |  1997 | eesti   | 
+| Suvi               | Oskar Luts    |  1988 | eesti   | 
++--------------------+---------------+-------+---------+
+11 rows in set (0.00 sec)
+
+6. Leia kõik 1988 aastal ilmunud raamatud. Mitu neid on?
+mysql> select * from RAAMAT where Aasta = 1988;
++------------+----------------+-------------+-------+---------+--------+-------+------+
+| Raamatu_ID | Pealkiri       | Autor       | Aasta | Koht    | Lk_arv | Keel  | Hind |
++------------+----------------+-------------+-------+---------+--------+-------+------+
+|          7 | Mina ja George | T.Trubetski |  1988 | Tallinn |    153 | eesti |   38 | 
+|         38 | Suvi           | Oskar Luts  |  1988 | Narva   |    162 | eesti |   79 | 
++------------+----------------+-------------+-------+---------+--------+-------+------+
+2 rows in set (0.00 sec)
+
+7. Leia kõik Tartus väljaantud raamatud. Kopeeri siia saadud tulemus.
+mysql> select * from RAAMAT where Koht = 'Tartu';
++------------+--------------+------------+-------+-------+--------+-------+------+
+| Raamatu_ID | Pealkiri     | Autor      | Aasta | Koht  | Lk_arv | Keel  | Hind |
++------------+--------------+------------+-------+-------+--------+-------+------+
+|         23 | Naksitrallid | Ellen Niit |  1980 | Tartu |    150 | eesti |   45 | 
+|         26 | Kunksmoor    | Aino Perg  |  1966 | Tartu |     67 | eesti |   75 | 
+|         34 | Soo          | Oskar Luts |  1971 | Tartu |     56 | eesti |   45 | 
+|         35 | Vari         | Juhan Liiv |  1928 | Tartu |    287 | eesti |   63 | 
+|         37 | Kevade       | Oskar Luts |  1997 | Tartu |    188 | eesti |   33 | 
++------------+--------------+------------+-------+-------+--------+-------+------+
+5 rows in set (0.00 sec)
+
+8. Leia raamatud, mille hind jääb 50EEK ja 80EEK vahele. Mitu sellist raamatut on?
+mysql> select * from RAAMAT where Hind > 50 AND Hind < 80;
++------------+--------------------+---------------+-------+---------+--------+-------+------+
+| Raamatu_ID | Pealkiri           | Autor         | Aasta | Koht    | Lk_arv | Keel  | Hind |
++------------+--------------------+---------------+-------+---------+--------+-------+------+
+|          9 | Konstitutsioon     | J.Stalin      |  1944 | Tallinn |    287 | eesti |   56 | 
+|         11 | Leninismi alustest | J.Stalin      |  1945 | Tallinn |    357 | eesti |   65 | 
+|         12 | Pimeduse pahem ksi | U.K.LeQuine   |  1975 | Tallinn |    198 | eesti |   55 | 
+|         14 | Surnud hinged      | Nikolai Kogol |  1977 | Tallinn |    298 | eesti |   55 | 
+|         15 | Kalevipoeg         | A.Kivirhk     |  1997 | Tallinn |      2 | eesti |   60 | 
+|         16 | Massi ebajumal     | V.Lcis        |  1989 | Tallinn |    376 | eesti |   75 | 
+|         26 | Kunksmoor          | Aino Perg     |  1966 | Tartu   |     67 | eesti |   75 | 
+|         29 | Muumitrollid       | Tove Janson   |  1998 | Norra   |      4 | norra |   77 | 
+|         35 | Vari               | Juhan Liiv    |  1928 | Tartu   |    287 | eesti |   63 | 
+|         36 | Vares              | Jri Tuulik    |  1948 | Tallinn |    253 | eesti |   72 | 
+|         38 | Suvi               | Oskar Luts    |  1988 | Narva   |    162 | eesti |   79 | 
+|         40 | Kurit ja karistus  | Dostojevski   |  1973 | Moskva  |    487 | vene  |   52 | 
+|         41 | Saladuslik saar    | Jules Verne   |  1956 | Pariis  |    682 | eesti |   62 | 
++------------+--------------------+---------------+-------+---------+--------+-------+------+
+13 rows in set (0.00 sec)
+9. Leia millised Oskar Lutsu raamatud on välja antud Tallinnas?
+mysql> select * from RAAMAT where Autor = 'Oskar Luts' AND Koht = 'Tallinn';
++------------+-------------+------------+-------+---------+--------+-------+------+
+| Raamatu_ID | Pealkiri    | Autor      | Aasta | Koht    | Lk_arv | Keel  | Hind |
++------------+-------------+------------+-------+---------+--------+-------+------+
+|          5 | Kevade      | Oskar Luts |  1945 | Tallinn |    268 | eesti |   46 | 
+|         33 | Nukitsamees | Oskar Luts |  1977 | Tallinn |     87 | eesti |   32 | 
++------------+-------------+------------+-------+---------+--------+-------+------+
+2 rows in set (0.00 sec)
+10. Leia raamatud, mis ei ole kirjutatud eesti keeles.
+mysql> select * from RAAMAT where Keel != 'eesti';                          
++------------+-------------------+------------------+-------+--------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri          | Autor            | Aasta | Koht         | Lk_arv | Keel      | Hind |
++------------+-------------------+------------------+-------+--------------+--------+-----------+------+
+|         22 | Kana ja muna      | Kait Marandi     |  1996 | Tartu Helmes |      2 | jaapani   |  450 | 
+|         24 | Arvuti A ja B     | Rein Hanson      |  1978 | USA          |      7 | inglise   |   23 | 
+|         28 | Bullerby lapsed   | Astrid Lindgren  |  1982 | Rootsi       |    199 | rootsi    |   26 | 
+|         29 | Muumitrollid      | Tove Janson      |  1998 | Norra        |      4 | norra     |   77 | 
+|         30 | Ja pike tuseb     | Hernst Hemingway |  1938 | USA          |    234 | inglise   |  327 | 
+|         31 | Vanamees ja meri  | Hernst Hemingway |  1964 | USA          |    312 | inglise   |   83 | 
+|         32 | 10 aastat hiljem  | Alexander Dumas  |  1955 | Pariis       |    183 | prantsuse |  821 | 
+|         39 | Sda ja rahu       | Lev Tolstoi      |  1963 | Moskva       |    645 | vene      |  143 | 
+|         40 | Kurit ja karistus | Dostojevski      |  1973 | Moskva       |    487 | vene      |   52 | 
++------------+-------------------+------------------+-------+--------------+--------+-----------+------+
+9 rows in set (0.00 sec)
+11. Järjesta raamatud esmalt autori järgi, seejärel pealkirja järgi.
+mysql> select * from RAAMAT order by Autor, Pealkiri;
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri           | Autor            | Aasta | Koht            | Lk_arv | Keel      | Hind |
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+|          4 | Tde ja igus        | A.H.Tammsaare    |  1920 | Tallinn         |    459 | eesti     |  235 | 
+|         15 | Kalevipoeg         | A.Kivirhk        |  1997 | Tallinn         |      2 | eesti     |   60 | 
+|         26 | Kunksmoor          | Aino Perg        |  1966 | Tartu           |     67 | eesti     |   75 | 
+|         27 | Arabella           | Aino Pervik      |  1985 | Tallinn         |    187 | eesti     |  876 | 
+|         32 | 10 aastat hiljem   | Alexander Dumas  |  1955 | Pariis          |    183 | prantsuse |  821 | 
+|         28 | Bullerby lapsed    | Astrid Lindgren  |  1982 | Rootsi          |    199 | rootsi    |   26 | 
+|         40 | Kurit ja karistus  | Dostojevski      |  1973 | Moskva          |    487 | vene      |   52 | 
+|         23 | Naksitrallid       | Ellen Niit       |  1980 | Tartu           |    150 | eesti     |   45 | 
+|         30 | Ja pike tuseb      | Hernst Hemingway |  1938 | USA             |    234 | inglise   |  327 | 
+|         31 | Vanamees ja meri   | Hernst Hemingway |  1964 | USA             |    312 | inglise   |   83 | 
+|          2 | Ajaseemned         | Isaac Asimov     |  1978 | Eesti kirjastus |    258 | eesti     |   38 | 
+|          1 | Asum               | Isaac Asimov     |  1976 | Eesti kirjastus |    193 | eesti     |   35 | 
+|         20 | Pioneerid          | J.F.Cooper       |  1973 | Tallinn         |    398 | eesti     |    1 | 
+|         13 | Mis teha           | J.K.Ibin         |  1950 | Tallinn         |    175 | eesti     |   43 | 
+|          9 | Konstitutsioon     | J.Stalin         |  1944 | Tallinn         |    287 | eesti     |   56 | 
+|         11 | Leninismi alustest | J.Stalin         |  1945 | Tallinn         |    357 | eesti     |   65 | 
+|         36 | Vares              | Jri Tuulik       |  1948 | Tallinn         |    253 | eesti     |   72 | 
+|         35 | Vari               | Juhan Liiv       |  1928 | Tartu           |    287 | eesti     |   63 | 
+|         41 | Saladuslik saar    | Jules Verne      |  1956 | Pariis          |    682 | eesti     |   62 | 
+|         22 | Kana ja muna       | Kait Marandi     |  1996 | Tartu Helmes    |      2 | jaapani   |  450 | 
+|         39 | Sda ja rahu        | Lev Tolstoi      |  1963 | Moskva          |    645 | vene      |  143 | 
+|         21 | Surma ratsanikud   | M.Kivistik       |  1992 | Tallinn         |    287 | eesti     |    1 | 
+|          3 | Frankestein        | Mary Shelly      |  1968 | Eesti kirjastus |    189 | eesti     |   29 | 
+|         14 | Surnud hinged      | Nikolai Kogol    |  1977 | Tallinn         |    298 | eesti     |   55 | 
+|          5 | Kevade             | Oskar Luts       |  1945 | Tallinn         |    268 | eesti     |   46 | 
+|         37 | Kevade             | Oskar Luts       |  1997 | Tartu           |    188 | eesti     |   33 | 
+|         33 | Nukitsamees        | Oskar Luts       |  1977 | Tallinn         |     87 | eesti     |   32 | 
+|         34 | Soo                | Oskar Luts       |  1971 | Tartu           |     56 | eesti     |   45 | 
+|         38 | Suvi               | Oskar Luts       |  1988 | Narva           |    162 | eesti     |   79 | 
+|         24 | Arvuti A ja B      | Rein Hanson      |  1978 | USA             |      7 | inglise   |   23 | 
+|         19 | Testament          | Rex Stout        |  1986 | Tallinn         |    187 | eesti     |  115 | 
+|          8 | Kitumise anatoomia | Sigmund Freud    |  1997 | Tallinn         |      5 | eesti     |  395 | 
+|         25 | Kasuema            | Silvia Rannamaa  |  1923 | Valga           |    145 | eesti     |   45 | 
+|          6 | Daam sinises       | T.Trubetski      |  1986 | Tallinn         |    137 | eesti     |   25 | 
+|          7 | Mina ja George     | T.Trubetski      |  1988 | Tallinn         |    153 | eesti     |   38 | 
+|         29 | Muumitrollid       | Tove Janson      |  1998 | Norra           |      4 | norra     |   77 | 
+|         12 | Pimeduse pahem ksi | U.K.LeQuine      |  1975 | Tallinn         |    198 | eesti     |   55 | 
+|         10 | Rahvasbrad         | V.I.Lenin        |  1951 | Tallinn         |    176 | eesti     |   23 | 
+|         18 | Hiline kevad       | V.Lcis           |  1989 | Tallinn         |    298 | eesti     |   89 | 
+|         17 | Inimesed maskides  | V.Lcis           |  1989 | Tallinn         |    245 | eesti     |  130 | 
+|         16 | Massi ebajumal     | V.Lcis           |  1989 | Tallinn         |    376 | eesti     |   75 | 
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+41 rows in set (0.00 sec)
+
+12. Leia raamatud, mis algavad m tähega.
+mysql> select * from RAAMAT where left(Pealkiri, 1) = 'M';
++------------+----------------+-------------+-------+---------+--------+-------+------+
+| Raamatu_ID | Pealkiri       | Autor       | Aasta | Koht    | Lk_arv | Keel  | Hind |
++------------+----------------+-------------+-------+---------+--------+-------+------+
+|          7 | Mina ja George | T.Trubetski |  1988 | Tallinn |    153 | eesti |   38 | 
+|         13 | Mis teha       | J.K.Ibin    |  1950 | Tallinn |    175 | eesti |   43 | 
+|         16 | Massi ebajumal | V.Lcis      |  1989 | Tallinn |    376 | eesti |   75 | 
+|         29 | Muumitrollid   | Tove Janson |  1998 | Norra   |      4 | norra |   77 | 
++------------+----------------+-------------+-------+---------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+13. Leia hetke kuupäev ja kellaaeg
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2009-12-15 13:37:46 | 
++---------------------+
+1 row in set (0.00 sec)
+

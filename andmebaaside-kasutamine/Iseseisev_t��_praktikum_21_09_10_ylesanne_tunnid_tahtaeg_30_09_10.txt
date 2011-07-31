@@ -1,0 +1,32 @@
+Ülesanne
+
+On antud tabel, milles on üks veerg, kus hoitakse tunde täisarvudena. Sellest tabelist oleks vaja saada selline tulemus, mis näitaks kui palju ette antud tundidest saab nädalaid, päevi ja tunde.
+nt.
+
+Tunnid 	Nadalad	Paevad	Tunnid
+5	0	0	5
+55	0	2	7
+125	0	5	5
+1225	7	2	1
+555	3	2	3
+
+
+
+create table tunnid(tunnid int);
+
+insert into tunnid (tunnid) values (5), (55), (125), (1225), (555);
+
+select tunnid, floor(tunnid/168) as nadalad, floor((tunnid/168-floor(tunnid/168))*168/24) as paevad, (tunnid-(floor((tunnid/168-floor(tunnid/168))*168/24)*24))-floor(tunnid/168)*168 as tunnid from tunnid;
+
+
+mysql> select tunnid, floor(tunnid/168) as nadalad, floor((tunnid/168-floor(tunnid/168))*168/24) as paevad, (tunnid-(floor((tunnid/168-floor(tunnid/168))*168/24)*24))-floor(tunnid/168)*168 as tunnid from tunnid;
++--------+---------+--------+--------+
+| tunnid | nadalad | paevad | tunnid |
++--------+---------+--------+--------+
+|      5 |       0 |      0 |      5 | 
+|     55 |       0 |      2 |      7 | 
+|    125 |       0 |      5 |      5 | 
+|   1225 |       7 |      2 |      1 | 
+|    555 |       3 |      2 |      3 | 
++--------+---------+--------+--------+
+5 rows in set (0.00 sec)

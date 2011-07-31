@@ -1,0 +1,11 @@
+1;Rita Ritsikas;Jaana;T;7345678;Tartu;Aia 23-4
+2;Jaanus Nastik;Jaan;P;5088892;Tartu;Juustu 4
+3;Jaana Jalaks;Jaanika;T;7689458;Tartu;Kase 4-12
+4;Juhan Juss;Kris;P;53897865;Tallinn;Vee 2 -32
+5;Riho Roos;Valli;T;56698879;Tallinn;Kollase 2 -23
+6;Leho Loos;;;5669877;Tallinn;Kollase 2 -45
+7;Kalle Kaun;Janek;P;78955545;Tartu;Piima 23
+8;Jüri Hein;Joonas;P;4588789;Tartu;Kuuse 12 - 1
+9;Salme Suusk;Marika;T;5566456;Viljandi;Kuu 13
+10;Juta Jalakas;Tuuli;T;25566558;Viljandi;Tähe 12
+11;Reet Roos;Taavi;P;5698999;Tallinn;Tuule 34 -17

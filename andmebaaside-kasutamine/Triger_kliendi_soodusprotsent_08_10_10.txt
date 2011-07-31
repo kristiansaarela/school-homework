@@ -1,0 +1,39 @@
+Loo tabel KLIENDID, mis sisaldab järgmiseid välju:
+•	Kliendi_id PK,
+•	Kliendi_nimi,
+•	Boonuspunktid täisarv,
+•	Soodustusprotsent reaalarv.
+
+mysql> create table kliendid (kliendi_id int not null auto_increment primary key, kliendi_nimi varchar(50) not null, boonuspunktid int not null, soodustusprotsent float(3, 1));
+Query OK, 0 rows affected (0.00 sec)
+
+Loo tabel K_LOGI, mis kajastaks klientide soodusprotsentide muutusi (id, kliendi_id, kuupaev, boonuspunktide arv ja soodustusprotsent.
+mysql> create table k_logi (id int not null auto_increment primary key, kliendi_id int not null,kuupaev datetime not null, boonuspunktid int not null, soodustusprotsent int);
+Query OK, 0 rows affected (0.01 sec)
+
+Boonuspunktid kogunevad ostude summadest. Esialgne soodustusprotsent on 1. Protsent tõuseb 1 võrra, kui boonuspunktid suurenevad 10 000 krooni võrra. Maksimaalne soodusprotsent on 25. Koosta triger, mis käivitub boonuspunktide suurendamisega ja suurendab soodustusprotsenti 1 võrra kui boonuspunktid on suurenenud 10 000 võrra. Logi tabelis peaksid kajastuma soodustusprotsentide muutused.
+
+mysql> create trigger boonukad before update on kliendid for each row begin if NEW.boonuspunktid < 250000 then set NEW.soodustusprotsent = floor(NEW.boonuspunktid/10000+1); insert into k_logi values ('', OLD.kliendi_id, now(), NEW.boonuspunktid, NEW.soodustusprotsent); elseif NEW.boonuspunktid > 250000 then set NEW.soodustusprotsent = 25; end if; end;//
+Query OK, 0 rows affected (0.00 sec)
+
++------------+------------------------+---------------+-------------------+
+| kliendi_id | kliendi_nimi           | boonuspunktid | soodustusprotsent |
++------------+------------------------+---------------+-------------------+
+|          1 | kalle kustav hernesaks |         57632 |                 6 |
+|          2 | toomas oks             |         60840 |                 1 |
++------------+------------------------+---------------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter ;
+mysql> update kliendid set boonuspunktid = 84187 where kliendi_id = 1;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kliendid;
++------------+------------------------+---------------+-------------------+
+| kliendi_id | kliendi_nimi           | boonuspunktid | soodustusprotsent |
++------------+------------------------+---------------+-------------------+
+|          1 | kalle kustav hernesaks |         84187 |                 9 |
+|          2 | toomas oks             |         60840 |                 1 |
++------------+------------------------+---------------+-------------------+
+2 rows in set (0.00 sec)

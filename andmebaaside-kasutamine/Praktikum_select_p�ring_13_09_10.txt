@@ -1,0 +1,446 @@
+1. Leia lapsed, kelle sünnikaal on suurem 4040 grammist.
+mysql> select * from SYNNID where Synnikaal > '4040';
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+| 2007-02-09   |     16 | Rihard    | Tallinn | 02:52:00 |      4140 |          52 | p    | 
+| 2007-02-12   |     25 | Andres    | Tallinn | 03:15:00 |      4345 |          53 | p    | 
+| 2007-02-15   |     31 | Ralf      | Tallinn | 17:21:00 |      4842 |          52 | p    | 
+| 2007-02-17   |     36 | Marelle   | Tallinn | 13:36:00 |      4100 |          51 | t    | 
+| 2007-02-20   |     40 | Marinel   | Tallinn | 15:22:00 |      4062 |          51 | t    | 
+| 2007-02-26   |     43 | Mirell    | Tallinn | 03:05:00 |      4080 |          54 | t    | 
+| 2007-03-04   |     48 | Marek     | Tallinn | 04:55:00 |      4600 |          51 | p    | 
+| 2006-05-13   |     50 | Lady GAGA | Adavere | 05:02:03 |      7810 |          90 | t    | 
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+8 rows in set (0.00 sec)
+
+2. Leia lapsed, kelle sünnikaal on väiksem võrdne 3800 grammist.
+mysql> select * from SYNNID where Synnikaal <= '3800';
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht    | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+| 2007-01-15   |      1 | Richard   | Tallinn    | 22:59:00 |      2385 |          46 | p    | 
+| 2007-01-27   |      2 | Ralf      | Tallinn    | 13:08:00 |      3736 |          50 | p    | 
+| 2007-01-27   |      3 | Karolin   | Tallinn    | 19:42:00 |      3538 |          51 | t    | 
+| 2007-01-28   |      4 | Liisi     | Tallinn    | 00:12:00 |      2920 |          48 | t    | 
+| 2007-01-28   |      5 | Kaur      | Tallinn    | 00:53:00 |      2610 |          46 | p    | 
+| 2007-01-28   |      6 | Rasmus    | Keila      | 13:41:00 |      2462 |          47 | p    | 
+| 2007-01-30   |      7 | Ramona    | Tallinn    | 18:27:00 |      2473 |          47 | t    | 
+| 2007-01-31   |      8 | Otto      | Tallinn    | 09:15:00 |      3148 |          50 | p    | 
+| 2007-01-31   |      8 | Konrad    | Tallinn    | 09:17:00 |      2652 |          50 | p    | 
+| 2007-01-31   |      9 | Karola    | Helsingi   | 18:28:00 |      3545 |          50 | t    | 
+| 2007-02-01   |     10 | Sten      | Tartu      | 12:23:00 |      3740 |          51 | p    | 
+| 2007-02-04   |     12 | Heike     | Tallinn    | 11:17:00 |      3450 |          50 | t    | 
+| 2007-02-05   |     13 | Aneteliis | Tartu      | 19:25:00 |      3290 |          49 | t    | 
+| 2007-02-07   |     15 | Kelly     | Tallinn    | 22:44:00 |      3250 |          50 | t    | 
+| 2007-02-09   |     17 | Sander    | Tallinn    | 17:43:00 |      3330 |          50 | p    | 
+| 2007-02-10   |     18 | Marten    | Tallinn    | 03:28:00 |      3756 |          51 | p    | 
+| 2007-02-10   |     19 | Bairon    | Tartu      | 06:05:00 |      2710 |          49 | p    | 
+| 2007-02-10   |     20 | Inga      | Tallinn    | 06:18:00 |      3056 |          48 | t    | 
+| 2007-02-10   |     21 | Sebastian | Tallinn    | 14:49:00 |      2818 |          48 | p    | 
+| 2007-02-11   |     22 | Jaan      | Tallinn    | 01:27:00 |      3496 |          51 | p    | 
+| 2007-02-11   |     23 | Elis      | Tallinn    | 10:54:00 |      2760 |          47 | t    | 
+| 2007-02-11   |     24 | Heleriin  | Tartu      | 14:51:00 |      3398 |          51 | t    | 
+| 2007-02-12   |     26 | Melani    | Paide      | 12:50:00 |      3150 |          51 | t    | 
+| 2007-02-12   |     27 | Joosep    | Viljandi   | 23:42:00 |      3460 |          49 | p    | 
+| 2007-02-13   |     29 | Kaidro    | Tallinn    | 11:33:00 |      3670 |          53 | p    | 
+| 2007-02-13   |     30 | Rasmus    | Tallinn    | 04:05:00 |      3670 |          52 | p    | 
+| 2007-02-15   |     32 | Jessika   | Tallinn    | 23:15:00 |      3670 |          53 | t    | 
+| 2007-02-16   |     33 | Prank     | Tallinn    | 01:13:00 |      3166 |          53 | p    | 
+| 2007-02-16   |     34 | Lars      | Tartu      | 07:58:00 |      3090 |          50 | p    | 
+| 2007-02-17   |     35 | Oliver    | Tartu      | 20:27:00 |      3640 |          50 | p    | 
+| 2007-02-19   |     37 | Kelli     | Tallinn    | 19:06:00 |      3540 |          52 | t    | 
+| 2007-02-20   |     38 | Karina    | Tartu      | 14:55:00 |      3400 |          51 | t    | 
+| 2007-02-22   |     41 | Lisandra  | Kuressaare | 20:08:00 |      3186 |          49 | t    | 
+| 2007-02-27   |     46 | Tanel     | Tallinn    | 23:09:00 |      3104 |          48 | p    | 
+| 2007-03-02   |     47 | Emil      | Tartu      | 00:15:00 |      3410 |          50 | p    | 
+| 2007-03-08   |     49 | Merike    | Paide      | 01:43:00 |      3800 |          52 | t    | 
+| 2007-03-09   |     50 | Rita      | Tallinn    | 01:37:00 |      3778 |          52 | t    | 
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+37 rows in set (0.00 sec)
+
+3. Leia lapsed, kelle sünnikaal on 3330 grammist kuni 4000 grammini. (Too kaks lahendust)
+mysql> select * from SYNNID where Synnikaal between 3330 and 4000;
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht  | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+| 2007-01-27   |      2 | Ralf      | Tallinn  | 13:08:00 |      3736 |          50 | p    | 
+| 2007-01-27   |      3 | Karolin   | Tallinn  | 19:42:00 |      3538 |          51 | t    | 
+| 2007-01-31   |      9 | Karola    | Helsingi | 18:28:00 |      3545 |          50 | t    | 
+| 2007-02-01   |     10 | Sten      | Tartu    | 12:23:00 |      3740 |          51 | p    | 
+| 2007-02-03   |     11 | Steven    | Tartu    | 23:47:00 |      3850 |          52 | p    | 
+| 2007-02-04   |     12 | Heike     | Tallinn  | 11:17:00 |      3450 |          50 | t    | 
+| 2007-02-09   |     17 | Sander    | Tallinn  | 17:43:00 |      3330 |          50 | p    | 
+| 2007-02-10   |     18 | Marten    | Tallinn  | 03:28:00 |      3756 |          51 | p    | 
+| 2007-02-11   |     22 | Jaan      | Tallinn  | 01:27:00 |      3496 |          51 | p    | 
+| 2007-02-11   |     24 | Heleriin  | Tartu    | 14:51:00 |      3398 |          51 | t    | 
+| 2007-02-12   |     27 | Joosep    | Viljandi | 23:42:00 |      3460 |          49 | p    | 
+| 2007-02-13   |     28 | Sebastian | Tallinn  | 05:20:00 |      3876 |          52 | p    | 
+| 2007-02-13   |     29 | Kaidro    | Tallinn  | 11:33:00 |      3670 |          53 | p    | 
+| 2007-02-13   |     30 | Rasmus    | Tallinn  | 04:05:00 |      3670 |          52 | p    | 
+| 2007-02-15   |     32 | Jessika   | Tallinn  | 23:15:00 |      3670 |          53 | t    | 
+| 2007-02-17   |     35 | Oliver    | Tartu    | 20:27:00 |      3640 |          50 | p    | 
+| 2007-02-19   |     37 | Kelli     | Tallinn  | 19:06:00 |      3540 |          52 | t    | 
+| 2007-02-20   |     38 | Karina    | Tartu    | 14:55:00 |      3400 |          51 | t    | 
+| 2007-02-20   |     39 | Maria     | Tallinn  | 20:51:00 |      3986 |          51 | t    | 
+| 2007-02-24   |     42 | Gregori   | Tallinn  | 03:22:00 |      3910 |          51 | p    | 
+| 2007-02-27   |     45 | Merike    | Tallinn  | 20:56:00 |      3912 |          53 | t    | 
+| 2007-03-02   |     47 | Emil      | Tartu    | 00:15:00 |      3410 |          50 | p    | 
+| 2007-03-08   |     49 | Merike    | Paide    | 01:43:00 |      3800 |          52 | t    | 
+| 2007-03-09   |     50 | Rita      | Tallinn  | 01:37:00 |      3778 |          52 | t    | 
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+24 rows in set (0.00 sec)
+
+mysql> select * from SYNNID where Synnikaal <= 4000 and Synnikaal >= 3330;
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht  | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+| 2007-01-27   |      2 | Ralf      | Tallinn  | 13:08:00 |      3736 |          50 | p    | 
+| 2007-01-27   |      3 | Karolin   | Tallinn  | 19:42:00 |      3538 |          51 | t    | 
+| 2007-01-31   |      9 | Karola    | Helsingi | 18:28:00 |      3545 |          50 | t    | 
+| 2007-02-01   |     10 | Sten      | Tartu    | 12:23:00 |      3740 |          51 | p    | 
+| 2007-02-03   |     11 | Steven    | Tartu    | 23:47:00 |      3850 |          52 | p    | 
+| 2007-02-04   |     12 | Heike     | Tallinn  | 11:17:00 |      3450 |          50 | t    | 
+| 2007-02-09   |     17 | Sander    | Tallinn  | 17:43:00 |      3330 |          50 | p    | 
+| 2007-02-10   |     18 | Marten    | Tallinn  | 03:28:00 |      3756 |          51 | p    | 
+| 2007-02-11   |     22 | Jaan      | Tallinn  | 01:27:00 |      3496 |          51 | p    | 
+| 2007-02-11   |     24 | Heleriin  | Tartu    | 14:51:00 |      3398 |          51 | t    | 
+| 2007-02-12   |     27 | Joosep    | Viljandi | 23:42:00 |      3460 |          49 | p    | 
+| 2007-02-13   |     28 | Sebastian | Tallinn  | 05:20:00 |      3876 |          52 | p    | 
+| 2007-02-13   |     29 | Kaidro    | Tallinn  | 11:33:00 |      3670 |          53 | p    | 
+| 2007-02-13   |     30 | Rasmus    | Tallinn  | 04:05:00 |      3670 |          52 | p    | 
+| 2007-02-15   |     32 | Jessika   | Tallinn  | 23:15:00 |      3670 |          53 | t    | 
+| 2007-02-17   |     35 | Oliver    | Tartu    | 20:27:00 |      3640 |          50 | p    | 
+| 2007-02-19   |     37 | Kelli     | Tallinn  | 19:06:00 |      3540 |          52 | t    | 
+| 2007-02-20   |     38 | Karina    | Tartu    | 14:55:00 |      3400 |          51 | t    | 
+| 2007-02-20   |     39 | Maria     | Tallinn  | 20:51:00 |      3986 |          51 | t    | 
+| 2007-02-24   |     42 | Gregori   | Tallinn  | 03:22:00 |      3910 |          51 | p    | 
+| 2007-02-27   |     45 | Merike    | Tallinn  | 20:56:00 |      3912 |          53 | t    | 
+| 2007-03-02   |     47 | Emil      | Tartu    | 00:15:00 |      3410 |          50 | p    | 
+| 2007-03-08   |     49 | Merike    | Paide    | 01:43:00 |      3800 |          52 | t    | 
+| 2007-03-09   |     50 | Rita      | Tallinn  | 01:37:00 |      3778 |          52 | t    | 
++--------------+--------+-----------+----------+----------+-----------+-------------+------+
+24 rows in set (0.00 sec)
+
+4. Leia lapsed, kelle sünnikaal on väiksem 3000 grammist ja suurem 4000 grammist.
+mysql> select * from SYNNID where Synnikaal < 3000 or Synnikaal >4000;
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+| 2007-01-15   |      1 | Richard   | Tallinn | 22:59:00 |      2385 |          46 | p    | 
+| 2007-01-28   |      4 | Liisi     | Tallinn | 00:12:00 |      2920 |          48 | t    | 
+| 2007-01-28   |      5 | Kaur      | Tallinn | 00:53:00 |      2610 |          46 | p    | 
+| 2007-01-28   |      6 | Rasmus    | Keila   | 13:41:00 |      2462 |          47 | p    | 
+| 2007-01-30   |      7 | Ramona    | Tallinn | 18:27:00 |      2473 |          47 | t    | 
+| 2007-01-31   |      8 | Konrad    | Tallinn | 09:17:00 |      2652 |          50 | p    | 
+| 2007-02-06   |     14 | Lysandra  | Tyri    | 15:41:00 |      4040 |          51 | t    | 
+| 2007-02-09   |     16 | Rihard    | Tallinn | 02:52:00 |      4140 |          52 | p    | 
+| 2007-02-10   |     19 | Bairon    | Tartu   | 06:05:00 |      2710 |          49 | p    | 
+| 2007-02-10   |     21 | Sebastian | Tallinn | 14:49:00 |      2818 |          48 | p    | 
+| 2007-02-11   |     23 | Elis      | Tallinn | 10:54:00 |      2760 |          47 | t    | 
+| 2007-02-12   |     25 | Andres    | Tallinn | 03:15:00 |      4345 |          53 | p    | 
+| 2007-02-15   |     31 | Ralf      | Tallinn | 17:21:00 |      4842 |          52 | p    | 
+| 2007-02-17   |     36 | Marelle   | Tallinn | 13:36:00 |      4100 |          51 | t    | 
+| 2007-02-20   |     40 | Marinel   | Tallinn | 15:22:00 |      4062 |          51 | t    | 
+| 2007-02-26   |     43 | Mirell    | Tallinn | 03:05:00 |      4080 |          54 | t    | 
+| 2007-02-27   |     44 | Meribel   | Paide   | 09:35:00 |      4040 |          53 | t    | 
+| 2007-03-04   |     48 | Marek     | Tallinn | 04:55:00 |      4600 |          51 | p    | 
+| 2006-05-13   |     50 | Lady GAGA | Adavere | 05:02:03 |      7810 |          90 | t    | 
++--------------+--------+-----------+---------+----------+-----------+-------------+------+
+19 rows in set (0.00 sec)
+
+5.  Leia lapsed, kelle eesnimi algab sõnaga Meri. Väljasta lapse nimi ja ema nimi.
+mysql> select e.Ema_nimi, s.L_nimi from EMAD as e, SYNNID as s where e.Ema_id = s.Ema_id and s.L_nimi like 'meri%';
++----------+---------+
+| Ema_nimi | L_nimi  |
++----------+---------+
+| Kiisu    | Meribel | 
+| Merka    | Merike  | 
+| Viki     | Merike  | 
++----------+---------+
+3 rows in set (0.00 sec)
+
+6. Leia lapsed, kelle nimi lõpeb a-ga. Väljasta lapse nimi, pikkus ja ema nimi.
+mysql> select e.Ema_nimi, s.L_nimi, s.Synnipikkus from EMAD as e, SYNNID as s where e.Ema_id = s.Ema_id and s.L_nimi like '%a';
++-------------+-----------+-------------+
+| Ema_nimi    | L_nimi    | Synnipikkus |
++-------------+-----------+-------------+
+| Patsike     | Ramona    |          47 | 
+| Margareth   | Karola    |          50 | 
+| Eveke       | Lysandra  |          51 | 
+| Pisikeingel | Inga      |          48 | 
+| Margariita  | Jessika   |          53 | 
+| Roosi       | Karina    |          51 | 
+| Ave         | Maria     |          51 | 
+| Kirke       | Lisandra  |          49 | 
+| Katrin      | Rita      |          52 | 
+| Katrin      | Lady GAGA |          90 | 
++-------------+-----------+-------------+
+10 rows in set (0.01 sec)
+
+7. Leia lapsed, kelle sünnipikkus on suurem 50 sentimeetrist ja ema on vähemalt 26 aastane. Välajasta lapse nimi, pikkus ja ema nimi.
+mysql> select e.Ema_nimi, s.L_nimi, s.Synnipikkus from EMAD as e, SYNNID as s where e.Ema_id = s.Ema_id and s.Synnipikkus > '50' and e.Vanus >= '26';
++------------+-----------+-------------+
+| Ema_nimi   | L_nimi    | Synnipikkus |
++------------+-----------+-------------+
+| Katariina  | Karolin   |          51 | 
+| Katriin    | Steven    |          52 | 
+| Eveke      | Lysandra  |          51 | 
+| Kriste     | Jaan      |          51 | 
+| Ade        | Andres    |          53 | 
+| Carmen     | Sebastian |          52 | 
+| Viivi      | Rasmus    |          52 | 
+| Liisa-Lota | Ralf      |          52 | 
+| Annika     | Prank     |          53 | 
+| Roosi      | Karina    |          51 | 
+| Ave        | Maria     |          51 | 
+| Marja      | Gregori   |          51 | 
+| Tups       | Mirell    |          54 | 
+| Lilleke    | Marek     |          51 | 
+| Viki       | Merike    |          52 | 
+| Katrin     | Rita      |          52 | 
+| Katrin     | Lady GAGA |          90 | 
++------------+-----------+-------------+
+17 rows in set (0.00 sec)
+8. Leia lapsed, kes on sündinud Tartus või Tallinnas ja kelle sünnipikkus on vähemalt 50 sentimeetrit. Väljasta lapse nimi pikkus ja elukoht.
+mysql> select L_nimi, Synnipikkus, Elukoht from SYNNID where Synnipikkus >= '50' and Elukoht = 'Tallinn' or Elukoht = 'Tartu';                                                   
++-----------+-------------+---------+
+| L_nimi    | Synnipikkus | Elukoht |
++-----------+-------------+---------+
+| Ralf      |          50 | Tallinn | 
+| Karolin   |          51 | Tallinn | 
+| Otto      |          50 | Tallinn | 
+| Konrad    |          50 | Tallinn | 
+| Sten      |          51 | Tartu   | 
+| Steven    |          52 | Tartu   | 
+| Heike     |          50 | Tallinn | 
+| Aneteliis |          49 | Tartu   | 
+| Kelly     |          50 | Tallinn | 
+| Rihard    |          52 | Tallinn | 
+| Sander    |          50 | Tallinn | 
+| Marten    |          51 | Tallinn | 
+| Bairon    |          49 | Tartu   | 
+| Jaan      |          51 | Tallinn | 
+| Heleriin  |          51 | Tartu   | 
+| Andres    |          53 | Tallinn | 
+| Sebastian |          52 | Tallinn | 
+| Kaidro    |          53 | Tallinn | 
+| Rasmus    |          52 | Tallinn | 
+| Ralf      |          52 | Tallinn | 
+| Jessika   |          53 | Tallinn | 
+| Prank     |          53 | Tallinn | 
+| Lars      |          50 | Tartu   | 
+| Oliver    |          50 | Tartu   | 
+| Marelle   |          51 | Tallinn | 
+| Kelli     |          52 | Tallinn | 
+| Karina    |          51 | Tartu   | 
+| Maria     |          51 | Tallinn | 
+| Marinel   |          51 | Tallinn | 
+| Gregori   |          51 | Tallinn | 
+| Mirell    |          54 | Tallinn | 
+| Merike    |          53 | Tallinn | 
+| Emil      |          50 | Tartu   | 
+| Marek     |          51 | Tallinn | 
+| Rita      |          52 | Tallinn | 
++-----------+-------------+---------+
+35 rows in set (0.00 sec)
+
+9. Täienda eelnevat päringut väljastades lisaks eelnevalt leitud andmetele ka ema nimi.
+mysql> select s.L_nimi, s.Synnipikkus, s.Elukoht, e.Ema_nimi from SYNNID s, EMAD e where s.Ema_id = e.Ema_id and  Synnipikkus >= '50' and Elukoht = 'Tallinn' or Elukoht = 'Tartu'
+ group by s.L_nimi;
++-----------+-------------+---------+------------+
+| L_nimi    | Synnipikkus | Elukoht | Ema_nimi   |
++-----------+-------------+---------+------------+
+| Andres    |          53 | Tallinn | Ade        | 
+| Aneteliis |          49 | Tartu   | Imbi       | 
+| Bairon    |          49 | Tartu   | Imbi       | 
+| Emil      |          50 | Tartu   | Imbi       | 
+| Gregori   |          51 | Tallinn | Marja      | 
+| Heike     |          50 | Tallinn | Zipsik     | 
+| Heleriin  |          51 | Tartu   | Imbi       | 
+| Jaan      |          51 | Tallinn | Kriste     | 
+| Jessika   |          53 | Tallinn | Margariita | 
+| Kaidro    |          53 | Tallinn | Silja      | 
+| Karina    |          51 | Tartu   | Imbi       | 
+| Karolin   |          51 | Tallinn | Katariina  | 
+| Kelli     |          52 | Tallinn | Blanka     | 
+| Kelly     |          50 | Tallinn | Nadja      | 
+| Konrad    |          50 | Tallinn | Lilleke    | 
+| Lars      |          50 | Tartu   | Imbi       | 
+| Marek     |          51 | Tallinn | Lilleke    | 
+| Marelle   |          51 | Tallinn | Fly        | 
+| Maria     |          51 | Tallinn | Ave        | 
+| Marinel   |          51 | Tallinn | Mari       | 
+| Marten    |          51 | Tallinn | Kristlin   | 
+| Merike    |          53 | Tallinn | Merka      | 
+| Mirell    |          54 | Tallinn | Tups       | 
+| Oliver    |          50 | Tartu   | Imbi       | 
+| Otto      |          50 | Tallinn | Lilleke    | 
+| Prank     |          53 | Tallinn | Annika     | 
+| Ralf      |          50 | Tallinn | Rapunzel   | 
+| Rasmus    |          52 | Tallinn | Viivi      | 
+| Rihard    |          52 | Tallinn | Moonika    | 
+| Rita      |          52 | Tallinn | Katrin     | 
+| Sander    |          50 | Tallinn | Plikake    | 
+| Sebastian |          52 | Tallinn | Carmen     | 
+| Sten      |          51 | Tartu   | Imbi       | 
+| Steven    |          52 | Tartu   | Imbi       | 
++-----------+-------------+---------+------------+
+34 rows in set (0.01 sec)
+
+10. Leia kõik erinevad laste nimed (kasuta DISTINCT'i), järjesta nimed a-st z-ni.
+mysql> select distinct L_nimi from SYNNID order by L_nimi asc;
++-----------+
+| L_nimi    |
++-----------+
+| Andres    | 
+| Aneteliis | 
+| Bairon    | 
+| Elis      | 
+| Emil      | 
+| Gregori   | 
+| Heike     | 
+| Heleriin  | 
+| Inga      | 
+| Jaan      | 
+| Jessika   | 
+| Joosep    | 
+| Kaidro    | 
+| Karina    | 
+| Karola    | 
+| Karolin   | 
+| Kaur      | 
+| Kelli     | 
+| Kelly     | 
+| Konrad    | 
+| Lady GAGA | 
+| Lars      | 
+| Liisi     | 
+| Lisandra  | 
+| Lysandra  | 
+| Marek     | 
+| Marelle   | 
+| Maria     | 
+| Marinel   | 
+| Marten    | 
+| Melani    | 
+| Meribel   | 
+| Merike    | 
+| Mirell    | 
+| Oliver    | 
+| Otto      | 
+| Prank     | 
+| Ralf      | 
+| Ramona    | 
+| Rasmus    | 
+| Richard   | 
+| Rihard    | 
+| Rita      | 
+| Sander    | 
+| Sebastian | 
+| Sten      | 
+| Steven    | 
+| Tanel     | 
++-----------+
+48 rows in set (0.01 sec)
+
+11. Leia lapsed, kelle nimi ei alga M-tähega. Väljasta nimed.
+mysql> select * from SYNNID where L_nimi not like 'm%';
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+| Synnikuupaev | Ema_id | L_nimi    | Elukoht    | Synniaeg | Synnikaal | Synnipikkus | SUGU |
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+| 2007-01-15   |      1 | Richard   | Tallinn    | 22:59:00 |      2385 |          46 | p    | 
+| 2007-01-27   |      2 | Ralf      | Tallinn    | 13:08:00 |      3736 |          50 | p    | 
+| 2007-01-27   |      3 | Karolin   | Tallinn    | 19:42:00 |      3538 |          51 | t    | 
+| 2007-01-28   |      4 | Liisi     | Tallinn    | 00:12:00 |      2920 |          48 | t    | 
+| 2007-01-28   |      5 | Kaur      | Tallinn    | 00:53:00 |      2610 |          46 | p    | 
+| 2007-01-28   |      6 | Rasmus    | Keila      | 13:41:00 |      2462 |          47 | p    | 
+| 2007-01-30   |      7 | Ramona    | Tallinn    | 18:27:00 |      2473 |          47 | t    | 
+| 2007-01-31   |      8 | Otto      | Tallinn    | 09:15:00 |      3148 |          50 | p    | 
+| 2007-01-31   |      8 | Konrad    | Tallinn    | 09:17:00 |      2652 |          50 | p    | 
+| 2007-01-31   |      9 | Karola    | Helsingi   | 18:28:00 |      3545 |          50 | t    | 
+| 2007-02-01   |     10 | Sten      | Tartu      | 12:23:00 |      3740 |          51 | p    | 
+| 2007-02-03   |     11 | Steven    | Tartu      | 23:47:00 |      3850 |          52 | p    | 
+| 2007-02-04   |     12 | Heike     | Tallinn    | 11:17:00 |      3450 |          50 | t    | 
+| 2007-02-05   |     13 | Aneteliis | Tartu      | 19:25:00 |      3290 |          49 | t    | 
+| 2007-02-06   |     14 | Lysandra  | Tyri       | 15:41:00 |      4040 |          51 | t    | 
+| 2007-02-07   |     15 | Kelly     | Tallinn    | 22:44:00 |      3250 |          50 | t    | 
+| 2007-02-09   |     16 | Rihard    | Tallinn    | 02:52:00 |      4140 |          52 | p    | 
+| 2007-02-09   |     17 | Sander    | Tallinn    | 17:43:00 |      3330 |          50 | p    | 
+| 2007-02-10   |     19 | Bairon    | Tartu      | 06:05:00 |      2710 |          49 | p    | 
+| 2007-02-10   |     20 | Inga      | Tallinn    | 06:18:00 |      3056 |          48 | t    | 
+| 2007-02-10   |     21 | Sebastian | Tallinn    | 14:49:00 |      2818 |          48 | p    | 
+| 2007-02-11   |     22 | Jaan      | Tallinn    | 01:27:00 |      3496 |          51 | p    | 
+| 2007-02-11   |     23 | Elis      | Tallinn    | 10:54:00 |      2760 |          47 | t    | 
+| 2007-02-11   |     24 | Heleriin  | Tartu      | 14:51:00 |      3398 |          51 | t    | 
+| 2007-02-12   |     25 | Andres    | Tallinn    | 03:15:00 |      4345 |          53 | p    | 
+| 2007-02-12   |     27 | Joosep    | Viljandi   | 23:42:00 |      3460 |          49 | p    | 
+| 2007-02-13   |     28 | Sebastian | Tallinn    | 05:20:00 |      3876 |          52 | p    | 
+| 2007-02-13   |     29 | Kaidro    | Tallinn    | 11:33:00 |      3670 |          53 | p    | 
+| 2007-02-13   |     30 | Rasmus    | Tallinn    | 04:05:00 |      3670 |          52 | p    | 
+| 2007-02-15   |     31 | Ralf      | Tallinn    | 17:21:00 |      4842 |          52 | p    | 
+| 2007-02-15   |     32 | Jessika   | Tallinn    | 23:15:00 |      3670 |          53 | t    | 
+| 2007-02-16   |     33 | Prank     | Tallinn    | 01:13:00 |      3166 |          53 | p    | 
+| 2007-02-16   |     34 | Lars      | Tartu      | 07:58:00 |      3090 |          50 | p    | 
+| 2007-02-17   |     35 | Oliver    | Tartu      | 20:27:00 |      3640 |          50 | p    | 
+| 2007-02-19   |     37 | Kelli     | Tallinn    | 19:06:00 |      3540 |          52 | t    | 
+| 2007-02-20   |     38 | Karina    | Tartu      | 14:55:00 |      3400 |          51 | t    | 
+| 2007-02-22   |     41 | Lisandra  | Kuressaare | 20:08:00 |      3186 |          49 | t    | 
+| 2007-02-24   |     42 | Gregori   | Tallinn    | 03:22:00 |      3910 |          51 | p    | 
+| 2007-02-27   |     46 | Tanel     | Tallinn    | 23:09:00 |      3104 |          48 | p    | 
+| 2007-03-02   |     47 | Emil      | Tartu      | 00:15:00 |      3410 |          50 | p    | 
+| 2007-03-09   |     50 | Rita      | Tallinn    | 01:37:00 |      3778 |          52 | t    | 
+| 2006-05-13   |     50 | Lady GAGA | Adavere    | 05:02:03 |      7810 |          90 | t    | 
++--------------+--------+-----------+------------+----------+-----------+-------------+------+
+42 rows in set (0.00 sec)
+
+12. Leia lapsed, kelle nimi ei alga E-tähega ja kes ei ela Tartus. Väljasta lapse nimi, ema nimi ja elukoht.
+mysql> select s.L_nimi, s.Elukoht, e.Ema_nimi from EMAD e, SYNNID s where e.Ema_id = s.Ema_id and s.L_nimi not like 'e%' and s.Elukoht != 'Tartu';
++-----------+------------+-------------+
+| L_nimi    | Elukoht    | Ema_nimi    |
++-----------+------------+-------------+
+| Richard   | Tallinn    | Imbi        | 
+| Ralf      | Tallinn    | Rapunzel    | 
+| Karolin   | Tallinn    | Katariina   | 
+| Liisi     | Tallinn    | Kristall    | 
+| Kaur      | Tallinn    | Kurr        | 
+| Rasmus    | Keila      | Miili       | 
+| Ramona    | Tallinn    | Patsike     | 
+| Otto      | Tallinn    | Lilleke     | 
+| Konrad    | Tallinn    | Lilleke     | 
+| Karola    | Helsingi   | Margareth   | 
+| Heike     | Tallinn    | Zipsik      | 
+| Lysandra  | Tyri       | Eveke       | 
+| Kelly     | Tallinn    | Nadja       | 
+| Rihard    | Tallinn    | Moonika     | 
+| Sander    | Tallinn    | Plikake     | 
+| Marten    | Tallinn    | Kristlin    | 
+| Inga      | Tallinn    | Pisikeingel | 
+| Sebastian | Tallinn    | Jessika     | 
+| Jaan      | Tallinn    | Kriste      | 
+| Andres    | Tallinn    | Ade         | 
+| Melani    | Paide      | Mormela     | 
+| Joosep    | Viljandi   | Krista      | 
+| Sebastian | Tallinn    | Carmen      | 
+| Kaidro    | Tallinn    | Silja       | 
+| Rasmus    | Tallinn    | Viivi       | 
+| Ralf      | Tallinn    | Liisa-Lota  | 
+| Jessika   | Tallinn    | Margariita  | 
+| Prank     | Tallinn    | Annika      | 
+| Marelle   | Tallinn    | Fly         | 
+| Kelli     | Tallinn    | Blanka      | 
+| Maria     | Tallinn    | Ave         | 
+| Marinel   | Tallinn    | Mari        | 
+| Lisandra  | Kuressaare | Kirke       | 
+| Gregori   | Tallinn    | Marja       | 
+| Mirell    | Tallinn    | Tups        | 
+| Meribel   | Paide      | Kiisu       | 
+| Merike    | Tallinn    | Merka       | 
+| Tanel     | Tallinn    | Pille       | 
+| Marek     | Tallinn    | Lilleke     | 
+| Merike    | Paide      | Viki        | 
+| Rita      | Tallinn    | Katrin      | 
+| Lady GAGA | Adavere    | Katrin      | 
++-----------+------------+-------------+
+42 rows in set (0.01 sec)
+

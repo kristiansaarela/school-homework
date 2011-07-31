@@ -1,0 +1,16 @@
+//Rakenduse kirjeldus
+
+//süsteem
+	andmebaas
+	kasutaja suhtlemine
+	lingide koostamine
+	template
+	sessioon
+//valjastus
+	//välimus
+	templates
+	//tegevused välimuse täitmiseks
+	tegevused
+//konfiguratsioon
+	//andmebaas
+	//rakendus

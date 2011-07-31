@@ -1,0 +1,97 @@
+<?php
+//classes/mysql.php
+
+//andmebaasiklass
+class MySQL
+{//klassi algus
+
+	var $conn = false; //ühendus
+
+	var $host = false; //host
+	var $user = false; //kasutajanimi
+	var $pass = false; //salasõna
+
+	var $dbname = false; //andmebaasi nimi
+
+	//konstruktor
+	function MySQL($h, $u, $p, $dbn)
+	{
+		$this->host = $h;
+		$this->user = $u;
+		$this->pass = $p;
+		$this->dbname = $dbn;
+
+		//tuleb lisada ühenduse ja andmebaasivaliku funktsioonid
+		$this->connect();
+		$this->selectDb();
+
+	}
+
+	//ühenduse funktsioon
+	function connect()
+	{//connect
+		$this->conn = mysql_connect($this->host, $this->user, $this->pass);
+
+		if(!is_resource($this->conn))
+		{
+			echo 'Viga andmebaasiühendusega<br />';
+			exit;
+		}
+	}//connect
+
+	//andmebaasi valik
+	function selectDb()
+	{//selectDb
+		$res = mysql_select_db($this->dbname);
+		if($res == false)
+		{
+			echo 'Ei saanud andmebaasi kätte<br />';
+			exit;
+		}
+	}//selectDb
+
+	//SQL päringud
+
+	function query($sql)
+	{//query
+		$res = mysql_query($sql, $this->conn);
+		if($res == false)
+		{
+			echo 'Viga päringus: '.$sql.'<br />';
+			echo mysql_error().'<br />';
+			exit;
+		}
+
+		//võime pärast lisada päringute ajaloo vaatamisvõimaluse
+		return $res;
+	}//query
+
+
+	function getArray($sql)
+	{
+		//antud meetod kasutab enda meetodit päringu teostamiseks
+		$res = $this->query($sql);
+		$data = array();
+		//mysql_fetch_assoc($res) - assotsiatiivse massiivi sisse panek
+		//all kirjutatdu versioon töötab kõikides versioonides - php4, php5
+		while($rec = mysql_fetch_array($res, MYSQL_ASSOC))
+		{
+			$data[] = $rec;
+		}
+		//sizeof == count
+		if(count($data) == 0)
+		{
+			return false;
+		}
+		return $data;
+	}//getArray
+	//siia tuleb veel lisada päringute ajaloo läbivaatamise funktsiooni
+
+}//klassi lõpp
+
+//testimine
+$dbc = new MySQL('localhost', 'root', '', 'anna_pugatsova');
+echo '<pre>';
+print_r($dbc->getArray('SELECT * FROM kasutajad'));
+echo '</pre>';
+?>

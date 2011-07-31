@@ -1,0 +1,237 @@
+praktikum_sql_3
+
+1. Leia iga laenutaja sünnikuupäev.
+mysql> select Eesnimi, Perenimi, mid(Isikukood, 6, 2) as paev from LUGEJA;
++----------+----------+------+
+| Eesnimi  | Perenimi | paev |
++----------+----------+------+
+| Kristian | Saarela  | 13   | 
+| Kalle    | Kohin    | 26   | 
+| Tiia     | Tuisk    | 29   | 
+| Pille    | Pill     | 30   | 
+| Kati     | Kask     | 16   | 
+| Malle    | Moos     | 01   | 
+| Mari     | Maasikas | 24   | 
+| Joosep   | Jalakas  | 22   | 
+| Tiit     | Tikk     | 06   | 
+| Ragnar   | Roos     | 21   | 
+| Robert   | Rohi     | 06   | 
+| Kevin    | Kivi     | 02   | 
+| Sille    | Siil     | 26   | 
+| Lilli    | Lill     | 22   | 
+| Luisa    | Tuul     | 16   | 
+| Sandra   | Saar     | 29   | 
+| Kadri    | Kade     | 21   | 
+| Vaiko    | Kook     | 20   | 
+| Veiko    | Vesi     | 02   | 
+| Hannes   | Hein     | 26   | 
+| Leo      | Loots    | 29   | 
+| Liia     | Lips     | 16   | 
+| Kalev    | Komm     | 26   | 
+| Rita     | Rehv     | 23   | 
+| Janek    | Jooksik  | 22   | 
+| Jane     | Jnes     | 16   | 
+| Mart     | Karu     | 31   | 
+| Kati     | Karu     | 31   | 
++----------+----------+------+
+28 rows in set (0.00 sec)
+
+2. Leia laenutajate sünnikuu.
+mysql> select Eesnimi, Perenimi, mid(Isikukood, 4, 2) as kuu from LUGEJA;
++----------+----------+-----+
+| Eesnimi  | Perenimi | kuu |
++----------+----------+-----+
+| Kristian | Saarela  | 05  | 
+| Kalle    | Kohin    | 10  | 
+| Tiia     | Tuisk    | 11  | 
+| Pille    | Pill     | 10  | 
+| Kati     | Kask     | 10  | 
+| Malle    | Moos     | 10  | 
+| Mari     | Maasikas | 10  | 
+| Joosep   | Jalakas  | 10  | 
+| Tiit     | Tikk     | 12  | 
+| Ragnar   | Roos     | 11  | 
+| Robert   | Rohi     | 06  | 
+| Kevin    | Kivi     | 06  | 
+| Sille    | Siil     | 10  | 
+| Lilli    | Lill     | 10  | 
+| Luisa    | Tuul     | 12  | 
+| Sandra   | Saar     | 12  | 
+| Kadri    | Kade     | 10  | 
+| Vaiko    | Kook     | 11  | 
+| Veiko    | Vesi     | 10  | 
+| Hannes   | Hein     | 12  | 
+| Leo      | Loots    | 04  | 
+| Liia     | Lips     | 11  | 
+| Kalev    | Komm     | 09  | 
+| Rita     | Rehv     | 07  | 
+| Janek    | Jooksik  | 11  | 
+| Jane     | Jnes     | 09  | 
+| Mart     | Karu     | 12  | 
+| Kati     | Karu     | 01  | 
++----------+----------+-----+
+28 rows in set (0.00 sec)
+
+3. Leia laenutajate sünniaasta.
+mysql> select Eesnimi, Perenimi, mid(Isikukood, 2, 2) as aasta from LUGEJA;
++----------+----------+-------+
+| Eesnimi  | Perenimi | aasta |
++----------+----------+-------+
+| Kristian | Saarela  | 92    | 
+| Kalle    | Kohin    | 89    | 
+| Tiia     | Tuisk    | 90    | 
+| Pille    | Pill     | 91    | 
+| Kati     | Kask     | 90    | 
+| Malle    | Moos     | 89    | 
+| Mari     | Maasikas | 88    | 
+| Joosep   | Jalakas  | 88    | 
+| Tiit     | Tikk     | 87    | 
+| Ragnar   | Roos     | 89    | 
+| Robert   | Rohi     | 88    | 
+| Kevin    | Kivi     | 90    | 
+| Sille    | Siil     | 90    | 
+| Lilli    | Lill     | 89    | 
+| Luisa    | Tuul     | 91    | 
+| Sandra   | Saar     | 90    | 
+| Kadri    | Kade     | 89    | 
+| Vaiko    | Kook     | 88    | 
+| Veiko    | Vesi     | 87    | 
+| Hannes   | Hein     | 92    | 
+| Leo      | Loots    | 89    | 
+| Liia     | Lips     | 91    | 
+| Kalev    | Komm     | 88    | 
+| Rita     | Rehv     | 91    | 
+| Janek    | Jooksik  | 89    | 
+| Jane     | Jnes     | 90    | 
+| Mart     | Karu     | 91    | 
+| Kati     | Karu     | 89    | 
++----------+----------+-------+
+28 rows in set (0.00 sec)
+
+4. Väljasta laenutaja eesnimi, perenimi, sünniaeg (nt 02.03.06), isikukood.
+mysql> select Eesnimi, Perenimi, concat_ws('.',mid(Isikukood, 2, 2), mid(Isikukood, 4, 2), mid(Isikukood, 6, 2)) as synniaeg, Isikukood from LUGEJA;
++----------+----------+----------+-------------+
+| Eesnimi  | Perenimi | synniaeg | Isikukood   |
++----------+----------+----------+-------------+
+| Kristian | Saarela  | 92.05.13 | 39205133516 | 
+| Kalle    | Kohin    | 89.10.26 | 38910262497 | 
+| Tiia     | Tuisk    | 90.11.29 | 49011292497 | 
+| Pille    | Pill     | 91.10.30 | 49110302488 | 
+| Kati     | Kask     | 90.10.16 | 49010162558 | 
+| Malle    | Moos     | 89.10.01 | 48910012697 | 
+| Mari     | Maasikas | 88.10.24 | 48810242787 | 
+| Joosep   | Jalakas  | 88.10.22 | 38810222497 | 
+| Tiit     | Tikk     | 87.12.06 | 38712062497 | 
+| Ragnar   | Roos     | 89.11.21 | 38911212491 | 
+| Robert   | Rohi     | 88.06.06 | 38806062494 | 
+| Kevin    | Kivi     | 90.06.02 | 39006022497 | 
+| Sille    | Siil     | 90.10.26 | 49010262577 | 
+| Lilli    | Lill     | 89.10.22 | 48910222497 | 
+| Luisa    | Tuul     | 91.12.16 | 49112162497 | 
+| Sandra   | Saar     | 90.12.29 | 49012292493 | 
+| Kadri    | Kade     | 89.10.21 | 48910212197 | 
+| Vaiko    | Kook     | 88.11.20 | 38811202495 | 
+| Veiko    | Vesi     | 87.10.02 | 38710022497 | 
+| Hannes   | Hein     | 92.12.26 | 39212262427 | 
+| Leo      | Loots    | 89.04.29 | 38904292497 | 
+| Liia     | Lips     | 91.11.16 | 49111162497 | 
+| Kalev    | Komm     | 88.09.26 | 38809262497 | 
+| Rita     | Rehv     | 91.07.23 | 49107232497 | 
+| Janek    | Jooksik  | 89.11.22 | 38911222492 | 
+| Jane     | Jnes     | 90.09.16 | 49009162497 | 
+| Mart     | Karu     | 91.12.31 | 39112312497 | 
+| Kati     | Karu     | 89.01.31 | 48901312397 | 
++----------+----------+----------+-------------+
+28 rows in set (0.00 sec)
+5. Lisa Laenutajate tabelisse järgmised kirjed
+   Joosep Sinine, isikukood: 50101013462, aadress: Tartu Tähe 43-1, käib lasteaias Pallike 
+   Berit Roosa, isikukood: 60211132136, aadress: Tartu Küüni 23-11, käib lasteaias Rõõmuratas
+mysql> insert into LUGEJA (Eesnimi, Perenimi, Isikukood, Aadress, Asutus) values ('Joosep', 'Sinine', '50101013462', 'Tartu Tahe 43-1', 'Pallike');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into LUGEJA (Eesnimi, Perenimi, Isikukood, Aadress, Asutus) values ('Berit', 'Roosa', '60211132136', 'Tartu Kuuni 23-11', 'Roomuratas');
+Query OK, 1 row affected (0.00 sec)
+
+6. Leia iga sünniaasta algus ka 19 või 20
+mysql> select mid(Isikukood, 2, 2) as synniaasta from LUGEJA;
++------------+
+| synniaasta |
++------------+
+| 92         | 
+| 89         | 
+| 90         | 
+| 91         | 
+| 90         | 
+| 89         | 
+| 88         | 
+| 88         | 
+| 87         | 
+| 89         | 
+| 88         | 
+| 90         | 
+| 90         | 
+| 89         | 
+| 91         | 
+| 90         | 
+| 89         | 
+| 88         | 
+| 87         | 
+| 92         | 
+| 89         | 
+| 91         | 
+| 88         | 
+| 91         | 
+| 89         | 
+| 90         | 
+| 91         | 
+| 89         | 
+| 01         | 
+| 02         | 
++------------+
+30 rows in set (0.01 sec)
+
+7. Väljasta laenutaja eesnimi, perenimi, sünniaeg (nt 02.03.2006), isikukood.
+mysql> select Eesnimi, Perenimi, concat_ws('.',mid(Isikukood, 6, 2), mid(Isikukood, 4, 2), mid(Isikukood, 2, 2)) as synniaeg, Isikukood from LUGEJA;
++----------+----------+----------+-------------+
+| Eesnimi  | Perenimi | synniaeg | Isikukood   |
++----------+----------+----------+-------------+
+| Kristian | Saarela  | 13.05.92 | 39205133516 | 
+| Kalle    | Kohin    | 26.10.89 | 38910262497 | 
+| Tiia     | Tuisk    | 29.11.90 | 49011292497 | 
+| Pille    | Pill     | 30.10.91 | 49110302488 | 
+| Kati     | Kask     | 16.10.90 | 49010162558 | 
+| Malle    | Moos     | 01.10.89 | 48910012697 | 
+| Mari     | Maasikas | 24.10.88 | 48810242787 | 
+| Joosep   | Jalakas  | 22.10.88 | 38810222497 | 
+| Tiit     | Tikk     | 06.12.87 | 38712062497 | 
+| Ragnar   | Roos     | 21.11.89 | 38911212491 | 
+| Robert   | Rohi     | 06.06.88 | 38806062494 | 
+| Kevin    | Kivi     | 02.06.90 | 39006022497 | 
+| Sille    | Siil     | 26.10.90 | 49010262577 | 
+| Lilli    | Lill     | 22.10.89 | 48910222497 | 
+| Luisa    | Tuul     | 16.12.91 | 49112162497 | 
+| Sandra   | Saar     | 29.12.90 | 49012292493 | 
+| Kadri    | Kade     | 21.10.89 | 48910212197 | 
+| Vaiko    | Kook     | 20.11.88 | 38811202495 | 
+| Veiko    | Vesi     | 02.10.87 | 38710022497 | 
+| Hannes   | Hein     | 26.12.92 | 39212262427 | 
+| Leo      | Loots    | 29.04.89 | 38904292497 | 
+| Liia     | Lips     | 16.11.91 | 49111162497 | 
+| Kalev    | Komm     | 26.09.88 | 38809262497 | 
+| Rita     | Rehv     | 23.07.91 | 49107232497 | 
+| Janek    | Jooksik  | 22.11.89 | 38911222492 | 
+| Jane     | Jnes     | 16.09.90 | 49009162497 | 
+| Mart     | Karu     | 31.12.91 | 39112312497 | 
+| Kati     | Karu     | 31.01.89 | 48901312397 | 
+| Joosep   | Sinine   | 01.01.01 | 50101013462 | 
+| Berit    | Roosa    | 13.11.02 | 60211132136 | 
++----------+----------+----------+-------------+
+30 rows in set (0.00 sec)
+
+***8. Uuri vanuse arvutamist järgmiselt veebilehelt 
+http://dev.mysql.com/doc/refman/5.0/en/date-calculations.html
+
+***9. Leia kõikide laenutajate vanused
+***10. Leia laenutajate keskmine vanus
+***11. Leia laenutajad, kes on keskmisest vanemad
+

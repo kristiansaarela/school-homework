@@ -1,0 +1,114 @@
+Praktikum_sql_6_alampäringud
+
+Kasuta järgmiste päringute tegemisel alampäringuid. ** päringute tegemisel ei pea kasutama alampäringuid.
+
+1. Leia vanima raamatu pealkiri, väljaandmise aasta ja autor.
+mysql> select pealkiri, aasta, autor from RAAMAT where aasta = (select min(aasta) from RAAMAT););
++-------------+-------+---------------+
+| pealkiri    | aasta | autor         |
++-------------+-------+---------------+
+| Tde ja igus |  1920 | A.H.Tammsaare | 
++-------------+-------+---------------+
+1 row in set (0.00 sec)
+
+2. Leia kõige uuema raamatu pealkiri, väljaandmise aasta ja autor.
+mysql> select pealkiri, aasta, autor from RAAMAT where aasta = (select max(aasta) from RAAMAT););
++--------------+-------+-------------+
+| pealkiri     | aasta | autor       |
++--------------+-------+-------------+
+| Muumitrollid |  1998 | Tove Janson | 
++--------------+-------+-------------+
+1 row in set (0.01 sec)
+3**. Leia raamatute keskmine vanus.
+mysql> select avg(2010-aasta) as keskmine_vanus from RAAMAT;
++----------------+
+| keskmine_vanus |
++----------------+
+|        39.7317 | 
++----------------+
+1 row in set (0.01 sec)
+
+4. Leia keskmisest vanemad raamatud (pealkiri, vanus).
+mysql> select pealkiri, year(now())-aasta as vanus from RAAMAT where (year(now()-aasta)) > (select avg(year(now())-aasta) from RAAMAT);
++--------------------+-------+
+| pealkiri           | vanus |
++--------------------+-------+
+| Asum               |    34 | 
+| Ajaseemned         |    32 | 
+| Frankestein        |    42 | 
+| Daam sinises       |    24 | 
+| Mina ja George     |    22 | 
+| Kitumise anatoomia |    13 | 
+| Rahvasbrad         |    59 | 
+| Pimeduse pahem ksi |    35 | 
+| Mis teha           |    60 | 
+| Surnud hinged      |    33 | 
+| Kalevipoeg         |    13 | 
+| Massi ebajumal     |    21 | 
+| Inimesed maskides  |    21 | 
+| Hiline kevad       |    21 | 
+| Testament          |    24 | 
+| Pioneerid          |    37 | 
+| Surma ratsanikud   |    18 | 
+| Kana ja muna       |    14 | 
+| Naksitrallid       |    30 | 
+| Arvuti A ja B      |    32 | 
+| Kunksmoor          |    44 | 
+| Arabella           |    25 | 
+| Bullerby lapsed    |    28 | 
+| Muumitrollid       |    12 | 
+| Vanamees ja meri   |    46 | 
+| 10 aastat hiljem   |    55 | 
+| Nukitsamees        |    33 | 
+| Soo                |    39 | 
+| Vares              |    62 | 
+| Kevade             |    13 | 
+| Suvi               |    22 | 
+| Sda ja rahu        |    47 | 
+| Kurit ja karistus  |    37 | 
+| Saladuslik saar    |    54 | 
++--------------------+-------+
+34 rows in set, 7 warnings (0.00 sec)
+
+5. Leia laenutatud raamatute nimed ja autorid. (Kasuta predikaati IN)
+mysql> select r.pealkiri, r.autor from RAAMAT as r, laenutamine as l where r.raamatu_id in(l.raamatu_id);
++--------------------+-----------------+
+| pealkiri           | autor           |
++--------------------+-----------------+
+| Asum               | Isaac Asimov    | 
+| Asum               | Isaac Asimov    | 
+| Leninismi alustest | J.Stalin        | 
+| Inimesed maskides  | V.Lcis          | 
+| Hiline kevad       | V.Lcis          | 
+| Surma ratsanikud   | M.Kivistik      | 
+| Kunksmoor          | Aino Perg       | 
+| Muumitrollid       | Tove Janson     | 
+| 10 aastat hiljem   | Alexander Dumas | 
+| Kevade             | Oskar Luts      | 
+| Kurit ja karistus  | Dostojevski     | 
++--------------------+-----------------+
+11 rows in set (0.00 sec)
+
+6. Leia raamatud, mille hind on suurem 200 kroonist, kui eelnevalt suurendati raamatute hinda 1,5 kord.
+mysql> select pealkiri, 1.5*hind from RAAMAT where (1.5*hind) > 200;
++--------------------+----------+
+| pealkiri           | 1.5*hind |
++--------------------+----------+
+| Tde ja igus        |    352.5 | 
+| Kitumise anatoomia |    592.5 | 
+| Kana ja muna       |      675 | 
+| Arabella           |     1314 | 
+| Ja pike tuseb      |    490.5 | 
+| 10 aastat hiljem   |   1231.5 | 
+| Sda ja rahu        |    214.5 | 
++--------------------+----------+
+7 rows in set (0.00 sec)
+
+7. Leia keskmine autori poolt kokku kirjutatud lehekülgede arv. (st leia iga autori raamatute lehekülgede arv kokku ja seejärel nende keskmine)
+mysql> select avg(keskmine) from (select autor, sum(lk_arv) as keskmine from RAAMAT group by autor) as uus;
++---------------+
+| avg(keskmine) |
++---------------+
+|      299.4516 | 
++---------------+
+1 row in set (0.00 sec)

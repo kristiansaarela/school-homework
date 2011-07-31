@@ -1,0 +1,134 @@
+praktikumi 22_03_10 jätk
+
+
+
+1. Loo uus tabel kesk_linna_j järgi, mis sisaldab välju Linn varchar(255), keskmine_myyk int ja primaarvõtme välja id.
+mysql> create table kesk_linna_j (id int primary key, linn varchar(255), keskmine_myyk int);
+Query OK, 0 rows affected (0.01 sec)
+
+
+2. Loodud tabelisse kesk_linna_j kanna andmed tabelitest Myyk ja Lao_asukoht kasutades olemasolevaid seoseid nende kahe tabeli vahel. 
+mysql> insert into kesk_linna_j (linn, keskmine_myyk) select linn, keskmine_myyk from myyk m, lao_asukoht l where m.lao_id = l.lao_id;
+Query OK, 46 rows affected (0.01 sec)
+Records: 46  Duplicates: 0  Warnings: 0
+
+mysql> select * from kesk_linna_j;
++----+------------+---------------+
+| id | linn       | keskmine_myyk |
++----+------------+---------------+
+|  1 | Tartu      |        300000 | 
+|  2 | Tartu      |         19000 | 
+|  3 | Viljandi   |        300000 | 
+|  4 | Viljandi   |         19000 | 
+|  5 | Parnu      |        300000 | 
+|  6 | Parnu      |         19000 | 
+|  7 | Tartu      |         40000 | 
+|  8 | Tartu      |         12800 | 
+|  9 | Viljandi   |         40000 | 
+| 10 | Viljandi   |         12800 | 
+| 11 | Parnu      |         40000 | 
+| 12 | Parnu      |         12800 | 
+| 13 | Tallinn    |         10000 | 
+| 14 | Tallinn    |         12000 | 
+| 15 | Tallinn    |          3420 | 
+| 16 | Narva      |         12000 | 
+| 17 | Johvi      |         80000 | 
+| 18 | Johvi      |         23000 | 
+| 19 | Johvi      |         12000 | 
+| 20 | Narva      |         80000 | 
+| 21 | Narva      |         23000 | 
+| 22 | Tallinn    |         65000 | 
+| 23 | Tallinn    |         23100 | 
+| 24 | Tallinn    |         12000 | 
+| 25 | Parnu      |         65000 | 
+| 26 | Parnu      |         23100 | 
+| 27 | Kuressaare |          9300 | 
+| 28 | Kuressaare |         12350 | 
+| 29 | Viljandi   |          9300 | 
+| 30 | Viljandi   |         12350 | 
+| 31 | Paide      |         12000 | 
+| 32 | Valga      |         11002 | 
+| 33 | Valga      |         10000 | 
+| 34 | Valga      |         12000 | 
+| 35 | Tartu      |         11002 | 
+| 36 | Tartu      |         10000 | 
+| 37 | Tartu      |          7000 | 
+| 38 | Tartu      |         32000 | 
+| 39 | Tallinn    |         80000 | 
+| 40 | Tallinn    |         23000 | 
+| 41 | Viljandi   |          7000 | 
+| 42 | Viljandi   |         32000 | 
+| 43 | Narva      |         65000 | 
+| 44 | Narva      |         23100 | 
+| 45 | Parnu      |          9300 | 
+| 46 | Parnu      |         12350 | 
++----+------------+---------------+
+46 rows in set (0.01 sec)
+
+
+3. Muuda tabelis kesk_linna_j keskmiseid müügitulemusi (keskmine_myyk kroonides tuleb muuta müügiks eurodes, tulemused tuleb ümardada täisarvuideks).
+mysql> update kesk_linna_j set keskmine_myyk = round(keskmine_myyk/15, 2);
+Query OK, 46 rows affected (0.01 sec)
+Rows matched: 46  Changed: 46  Warnings: 0
+
+4. Vii tabeli kesk_linna_j uued müügitulemused tekstifaili.
+mysql> select * into outfile '/usr/home/atp08/kristian_s/tabelinimi.txt' fields terminated by ',' lines terminated by '\n' from kesk_linna_j;
+Query OK, 46 rows affected (0.00 sec)
+
+
+5. Ladudel on omanikud. MS Accessi andmebaasis Avalik/ATP08/AB kasutamine/Praktikumid/Laod.accd on tabel Omanikud. Too selles olevad andmed oma andmebaasi uude tabelisse Omanikud.
+mysql> load data infile '/usr/home/atp08/kristian_s/Omanik.txt' into table omanikud fields terminated by ';' lines terminated by '\n';
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Deleted: 0  Skipped: 0  Warnings: 0
+
+6. Väljasta ladude nimed, omanikud ja asukohad (ühel väljal komadega eraldatult).
+mysql> select l.lao_nimi, o.omaniku_nimi, group_concat(a.aadress, ' ',a.linn order by a.linn  separator ', ') from ladu l, omanikud o, lao_asukoht a where a.lao_id = l.lao_id and l.lao_id = o.laod_id group by lao_nimi;
++-------------------+-----------------+-------------------------------------------------------------------------------------+
+| lao_nimi          | omaniku_nimi    | group_concat(a.aadress, ' ',a.linn order by a.linn  separator ', ')                 |
++-------------------+-----------------+-------------------------------------------------------------------------------------+
+| Aedvilja OY       | "Riho Roos"     | Jaani 34 Johvi, Piiri 14 Narva, Kesk 12  Paide, Tuulepea 67 Tallinn, Kooli 11 Valga | 
+| AS Aiasaadused    | "Salme Suusk"   | Mere pst 45 Kuressaare, Ranna pst 11 Parnu, Jarve 34 Viljandi                       | 
+| AS Po~llumees     | "Janar Hein"    | Kase 32 Narva, Sadama 89 Parnu, Tahe 23 Tallinn                                     | 
+| AS Puuviljakorv   | "Leho Loos"     | Kastani 55 Tartu, Kesk 85 Viljandi                                                  | 
+| Kartuliladu       | "Juhan Juss"    | Haaviku 11 Tallinn                                                                  | 
+| Ko                | "Jaanus Nastik" | Puiestee 45 Parnu, Turu 134 Tartu, Aia 17 Viljandi                                  | 
+| Kodumaised O~unad | "Jaana Jalaks"  | Juustu 17 Parnu, Siili 124 Tartu, Janese 23 Viljandi                                | 
+| OY Koduaed        | "Kalle Kaun"    | Jalaka 12 Johvi, Puiestee 122 Narva, Kloostri 44 Tallinn                            | 
+| OY Metsamarjad    | "Juta Jalakas"  | Tamme pst 91 Tartu, Piiri 69 Valga                                                  | 
++-------------------+-----------------+-------------------------------------------------------------------------------------+
+9 rows in set (0.00 sec)
+
+7. Mitmes kohas asuvad omanike laod? Väljasta iga omaniku kohta vastav arv.
+mysql> select count(l.lao_nimi), o.omaniku_nimi from ladu l, omanikud o, lao_asukoht a where a.lao_id = l.lao_id and l.lao_id = o.laod_id group by o.omaniku_nimi;
++-------------------+-----------------+
+| count(l.lao_nimi) | omaniku_nimi    |
++-------------------+-----------------+
+|                 3 | "Jaana Jalaks"  | 
+|                 3 | "Jaanus Nastik" | 
+|                 3 | "Janar Hein"    | 
+|                 1 | "Juhan Juss"    | 
+|                 2 | "Juta Jalakas"  | 
+|                 3 | "Kalle Kaun"    | 
+|                 2 | "Leho Loos"     | 
+|                 5 | "Riho Roos"     | 
+|                 3 | "Salme Suusk"   | 
++-------------------+-----------------+
+9 rows in set (0.01 sec)
+
+8. Millised on omanike keskmised müügitulemused kokku?
+mysql> select sum(keskmine_myyk), omaniku_nimi from myyk m, omanikud o where m.lao_id = o.laod_id group by omaniku_nimi;
++--------------------+-----------------+
+| sum(keskmine_myyk) | omaniku_nimi    |
++--------------------+-----------------+
+|              52800 | "Jaana Jalaks"  | 
+|             319000 | "Jaanus Nastik" | 
+|              88100 | "Janar Hein"    | 
+|              25420 | "Juhan Juss"    | 
+|              21002 | "Juta Jalakas"  | 
+|             103000 | "Kalle Kaun"    | 
+|              39000 | "Leho Loos"     | 
+|              12000 | "Riho Roos"     | 
+|              23000 | "Rita Ritsikas" | 
+|              21650 | "Salme Suusk"   | 
++--------------------+-----------------+
+10 rows in set (0.00 sec)

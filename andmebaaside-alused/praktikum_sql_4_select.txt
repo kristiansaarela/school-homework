@@ -1,0 +1,319 @@
+praktikum_sql_4
+host: 193.40.58.150
+
+
+1. Leia hetke kuupäev ja kellaaeg
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2010-01-06 14:21:08 | 
++---------------------+
+1 row in set (0.01 sec)
+
+
+2. Grupeeri andmed keele järgi.
+
+mysql> select * from RAAMAT group by Keel;
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri         | Autor           | Aasta | Koht            | Lk_arv | Keel      | Hind |
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+|          1 | Asum             | Isaac Asimov    |  1976 | Eesti kirjastus |    193 | eesti     |   35 | 
+|         24 | Arvuti A ja B    | Rein Hanson     |  1978 | USA             |      7 | inglise   |   23 | 
+|         22 | Kana ja muna     | Kait Marandi    |  1996 | Tartu Helmes    |      2 | jaapani   |  450 | 
+|         29 | Muumitrollid     | Tove Janson     |  1998 | Norra           |      4 | norra     |   77 | 
+|         32 | 10 aastat hiljem | Alexander Dumas |  1955 | Pariis          |    183 | prantsuse |  821 | 
+|         28 | Bullerby lapsed  | Astrid Lindgren |  1982 | Rootsi          |    199 | rootsi    |   26 | 
+|         39 | Sda ja rahu      | Lev Tolstoi     |  1963 | Moskva          |    645 | vene      |  143 | 
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+7 rows in set (0.01 sec)
+
+
+3. Leia mitu raamatut on igast keelest (kasuta group by ja funtsiooni count).
+
+mysql> select keel, count(Keel) from RAAMAT group by Keel;
++-----------+-------------+
+| keel      | count(Keel) |
++-----------+-------------+
+| eesti     |          32 | 
+| inglise   |           3 | 
+| jaapani   |           1 | 
+| norra     |           1 | 
+| prantsuse |           1 | 
+| rootsi    |           1 | 
+| vene      |           2 | 
++-----------+-------------+
+7 rows in set (0.00 sec)
+
+
+4. Grupeeri andmed koha järgi.
+mysql> select * from RAAMAT group by Koht;
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri         | Autor           | Aasta | Koht            | Lk_arv | Keel      | Hind |
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+|          1 | Asum             | Isaac Asimov    |  1976 | Eesti kirjastus |    193 | eesti     |   35 | 
+|         39 | Sda ja rahu      | Lev Tolstoi     |  1963 | Moskva          |    645 | vene      |  143 | 
+|         38 | Suvi             | Oskar Luts      |  1988 | Narva           |    162 | eesti     |   79 | 
+|         29 | Muumitrollid     | Tove Janson     |  1998 | Norra           |      4 | norra     |   77 | 
+|         32 | 10 aastat hiljem | Alexander Dumas |  1955 | Pariis          |    183 | prantsuse |  821 | 
+|         28 | Bullerby lapsed  | Astrid Lindgren |  1982 | Rootsi          |    199 | rootsi    |   26 | 
+|          4 | Tde ja igus      | A.H.Tammsaare   |  1920 | Tallinn         |    459 | eesti     |  235 | 
+|         23 | Naksitrallid     | Ellen Niit      |  1980 | Tartu           |    150 | eesti     |   45 | 
+|         22 | Kana ja muna     | Kait Marandi    |  1996 | Tartu Helmes    |      2 | jaapani   |  450 | 
+|         24 | Arvuti A ja B    | Rein Hanson     |  1978 | USA             |      7 | inglise   |   23 | 
+|         25 | Kasuema          | Silvia Rannamaa |  1923 | Valga           |    145 | eesti     |   45 | 
++------------+------------------+-----------------+-------+-----------------+--------+-----------+------+
+11 rows in set (0.00 sec)
+
+
+5. Leia mitu raamatut on igas kohas väljaantud.
+mysql> select Koht, count(Koht) as valja_antud from RAAMAT group by Koht;
++-----------------+-------------+
+| Koht            | valja_antud |
++-----------------+-------------+
+| Eesti kirjastus |           3 | 
+| Moskva          |           2 | 
+| Narva           |           1 | 
+| Norra           |           1 | 
+| Pariis          |           2 | 
+| Rootsi          |           1 | 
+| Tallinn         |          21 | 
+| Tartu           |           5 | 
+| Tartu Helmes    |           1 | 
+| USA             |           3 | 
+| Valga           |           1 | 
++-----------------+-------------+
+11 rows in set (0.00 sec)
+
+
+6. Grupeeri andmed autorite kaupa.
+mysql> select * from RAAMAT group by Autor;
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+| Raamatu_ID | Pealkiri           | Autor            | Aasta | Koht            | Lk_arv | Keel      | Hind |
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+|          4 | Tde ja igus        | A.H.Tammsaare    |  1920 | Tallinn         |    459 | eesti     |  235 | 
+|         15 | Kalevipoeg         | A.Kivirhk        |  1997 | Tallinn         |      2 | eesti     |   60 | 
+|         26 | Kunksmoor          | Aino Perg        |  1966 | Tartu           |     67 | eesti     |   75 | 
+|         27 | Arabella           | Aino Pervik      |  1985 | Tallinn         |    187 | eesti     |  876 | 
+|         32 | 10 aastat hiljem   | Alexander Dumas  |  1955 | Pariis          |    183 | prantsuse |  821 | 
+|         28 | Bullerby lapsed    | Astrid Lindgren  |  1982 | Rootsi          |    199 | rootsi    |   26 | 
+|         40 | Kurit ja karistus  | Dostojevski      |  1973 | Moskva          |    487 | vene      |   52 | 
+|         23 | Naksitrallid       | Ellen Niit       |  1980 | Tartu           |    150 | eesti     |   45 | 
+|         30 | Ja pike tuseb      | Hernst Hemingway |  1938 | USA             |    234 | inglise   |  327 | 
+|          1 | Asum               | Isaac Asimov     |  1976 | Eesti kirjastus |    193 | eesti     |   35 | 
+|         20 | Pioneerid          | J.F.Cooper       |  1973 | Tallinn         |    398 | eesti     |    1 | 
+|         13 | Mis teha           | J.K.Ibin         |  1950 | Tallinn         |    175 | eesti     |   43 | 
+|          9 | Konstitutsioon     | J.Stalin         |  1944 | Tallinn         |    287 | eesti     |   56 | 
+|         36 | Vares              | Jri Tuulik       |  1948 | Tallinn         |    253 | eesti     |   72 | 
+|         35 | Vari               | Juhan Liiv       |  1928 | Tartu           |    287 | eesti     |   63 | 
+|         41 | Saladuslik saar    | Jules Verne      |  1956 | Pariis          |    682 | eesti     |   62 | 
+|         22 | Kana ja muna       | Kait Marandi     |  1996 | Tartu Helmes    |      2 | jaapani   |  450 | 
+|         39 | Sda ja rahu        | Lev Tolstoi      |  1963 | Moskva          |    645 | vene      |  143 | 
+|         21 | Surma ratsanikud   | M.Kivistik       |  1992 | Tallinn         |    287 | eesti     |    1 | 
+|          3 | Frankestein        | Mary Shelly      |  1968 | Eesti kirjastus |    189 | eesti     |   29 | 
+|         14 | Surnud hinged      | Nikolai Kogol    |  1977 | Tallinn         |    298 | eesti     |   55 | 
+|          5 | Kevade             | Oskar Luts       |  1945 | Tallinn         |    268 | eesti     |   46 | 
+|         24 | Arvuti A ja B      | Rein Hanson      |  1978 | USA             |      7 | inglise   |   23 | 
+|         19 | Testament          | Rex Stout        |  1986 | Tallinn         |    187 | eesti     |  115 | 
+|          8 | Kitumise anatoomia | Sigmund Freud    |  1997 | Tallinn         |      5 | eesti     |  395 | 
+|         25 | Kasuema            | Silvia Rannamaa  |  1923 | Valga           |    145 | eesti     |   45 | 
+|          6 | Daam sinises       | T.Trubetski      |  1986 | Tallinn         |    137 | eesti     |   25 | 
+|         29 | Muumitrollid       | Tove Janson      |  1998 | Norra           |      4 | norra     |   77 | 
+|         12 | Pimeduse pahem ksi | U.K.LeQuine      |  1975 | Tallinn         |    198 | eesti     |   55 | 
+|         10 | Rahvasbrad         | V.I.Lenin        |  1951 | Tallinn         |    176 | eesti     |   23 | 
+|         16 | Massi ebajumal     | V.Lcis           |  1989 | Tallinn         |    376 | eesti     |   75 | 
++------------+--------------------+------------------+-------+-----------------+--------+-----------+------+
+31 rows in set (0.01 sec)
+
+
+7. Leia iga autori vanim  ja uusim raamat.
+mysql> select Autor, min(Aasta), max(Aasta) from RAAMAT group by Autor;
++------------------+------------+------------+
+| Autor            | min(Aasta) | max(Aasta) |
++------------------+------------+------------+
+| A.H.Tammsaare    |       1920 |       1920 | 
+| A.Kivirhk        |       1997 |       1997 | 
+| Aino Perg        |       1966 |       1966 | 
+| Aino Pervik      |       1985 |       1985 | 
+| Alexander Dumas  |       1955 |       1955 | 
+| Astrid Lindgren  |       1982 |       1982 | 
+| Dostojevski      |       1973 |       1973 | 
+| Ellen Niit       |       1980 |       1980 | 
+| Hernst Hemingway |       1938 |       1964 | 
+| Isaac Asimov     |       1976 |       1978 | 
+| J.F.Cooper       |       1973 |       1973 | 
+| J.K.Ibin         |       1950 |       1950 | 
+| J.Stalin         |       1944 |       1945 | 
+| Jri Tuulik       |       1948 |       1948 | 
+| Juhan Liiv       |       1928 |       1928 | 
+| Jules Verne      |       1956 |       1956 | 
+| Kait Marandi     |       1996 |       1996 | 
+| Lev Tolstoi      |       1963 |       1963 | 
+| M.Kivistik       |       1992 |       1992 | 
+| Mary Shelly      |       1968 |       1968 | 
+| Nikolai Kogol    |       1977 |       1977 | 
+| Oskar Luts       |       1945 |       1997 | 
+| Rein Hanson      |       1978 |       1978 | 
+| Rex Stout        |       1986 |       1986 | 
+| Sigmund Freud    |       1997 |       1997 | 
+| Silvia Rannamaa  |       1923 |       1923 | 
+| T.Trubetski      |       1986 |       1988 | 
+| Tove Janson      |       1998 |       1998 | 
+| U.K.LeQuine      |       1975 |       1975 | 
+| V.I.Lenin        |       1951 |       1951 | 
+| V.Lcis           |       1989 |       1989 | 
++------------------+------------+------------+
+31 rows in set (0.00 sec)
+
+
+8. Leia mitu lehekülge on iga autori raamatutes kokku.
+mysql> select Autor, sum(Lk_arv) from RAAMAT group by Autor;
++------------------+-------------+
+| Autor            | sum(Lk_arv) |
++------------------+-------------+
+| A.H.Tammsaare    |         459 | 
+| A.Kivirhk        |           2 | 
+| Aino Perg        |          67 | 
+| Aino Pervik      |         187 | 
+| Alexander Dumas  |         183 | 
+| Astrid Lindgren  |         199 | 
+| Dostojevski      |         487 | 
+| Ellen Niit       |         150 | 
+| Hernst Hemingway |         546 | 
+| Isaac Asimov     |         451 | 
+| J.F.Cooper       |         398 | 
+| J.K.Ibin         |         175 | 
+| J.Stalin         |         644 | 
+| Jri Tuulik       |         253 | 
+| Juhan Liiv       |         287 | 
+| Jules Verne      |         682 | 
+| Kait Marandi     |           2 | 
+| Lev Tolstoi      |         645 | 
+| M.Kivistik       |         287 | 
+| Mary Shelly      |         189 | 
+| Nikolai Kogol    |         298 | 
+| Oskar Luts       |         761 | 
+| Rein Hanson      |           7 | 
+| Rex Stout        |         187 | 
+| Sigmund Freud    |           5 | 
+| Silvia Rannamaa  |         145 | 
+| T.Trubetski      |         290 | 
+| Tove Janson      |           4 | 
+| U.K.LeQuine      |         198 | 
+| V.I.Lenin        |         176 | 
+| V.Lcis           |         919 | 
++------------------+-------------+
+31 rows in set (0.00 sec)
+
+
+9. Leia mitu raamatut on igal autoril ilmunud.
+mysql> select Autor, count(Pealkiri) from RAAMAT group by Autor;
++------------------+-----------------+
+| Autor            | count(Pealkiri) |
++------------------+-----------------+
+| A.H.Tammsaare    |               1 | 
+| A.Kivirhk        |               1 | 
+| Aino Perg        |               1 | 
+| Aino Pervik      |               1 | 
+| Alexander Dumas  |               1 | 
+| Astrid Lindgren  |               1 | 
+| Dostojevski      |               1 | 
+| Ellen Niit       |               1 | 
+| Hernst Hemingway |               2 | 
+| Isaac Asimov     |               2 | 
+| J.F.Cooper       |               1 | 
+| J.K.Ibin         |               1 | 
+| J.Stalin         |               2 | 
+| Jri Tuulik       |               1 | 
+| Juhan Liiv       |               1 | 
+| Jules Verne      |               1 | 
+| Kait Marandi     |               1 | 
+| Lev Tolstoi      |               1 | 
+| M.Kivistik       |               1 | 
+| Mary Shelly      |               1 | 
+| Nikolai Kogol    |               1 | 
+| Oskar Luts       |               5 | 
+| Rein Hanson      |               1 | 
+| Rex Stout        |               1 | 
+| Sigmund Freud    |               1 | 
+| Silvia Rannamaa  |               1 | 
+| T.Trubetski      |               2 | 
+| Tove Janson      |               1 | 
+| U.K.LeQuine      |               1 | 
+| V.I.Lenin        |               1 | 
+| V.Lcis           |               3 | 
++------------------+-----------------+
+31 rows in set (0.01 sec)
+
+
+10. Leia kõige vanem ja uuem raamat (aastaarvud).
+mysql> select max(Aasta) as uuem, min(Aasta) as vanem from RAAMAT;
++------+-------+
+| uuem | vanem |
++------+-------+
+| 1998 |  1920 | 
++------+-------+
+1 row in set (0.00 sec)
+
+
+11. Leia kellel lugejatest ei ole telefoni (väljasta eesnimi, perenimi). Mitmel lugejal ei ole telefoni?
+mysql> select Eesnimi, Perenimi from LUGEJA where Telefon is null or Telefon = 0;
++----------+----------+
+| Eesnimi  | Perenimi |
++----------+----------+
+| Kristian | Saarela  | 
+| Kadri    | Kade     | 
+| Hannes   | Hein     | 
+| Joosep   | Sinine   | 
+| Berit    | Roosa    | 
++----------+----------+
+5 rows in set (0.00 sec)
+
+
+12. Lisa 10 kirjet tabelisse laenutamine. 
+(Laenutada saab vaid neid raamatuid, mis on AB olemas ja nendele lugejatele, kes on registreeritud). Kasuta andmete sisestamisel funktsiooni curdate() ja tahtaeg     tagastamisele on laenutamise kuupäev+21 päeva (add_date() vaata helpi).
+
+create table laenutamine (
+	laenamise_ID int not null auto_increment,
+	kuupaev date,
+	lugeja_id int,
+	raamatu_id int,
+	tahtaeg date,
+	tagastamine date,
+	primary key (laenamise_id),
+	foreign key (lugeja_id) references LUGEJA(Lugeja_id),
+	foreign key (raamatu_id) references RAAMAT(Raamatu_id)
+);
+
+insert into laenutamine (kuupaev, lugeja_id, raamatu_id, tahtaeg) values 
+	(curdate(), 30, 40, adddate(kuupaev, interval 21 day)),
+	(curdate(), 25, 21, adddate(kuupaev, interval 21 day)),
+	(curdate(), 15, 37, adddate(kuupaev, interval 21 day)),
+	(curdate(), 10, 32, adddate(kuupaev, interval 21 day)),
+	(curdate(), 5, 26, adddate(kuupaev, interval 21 day)),
+	(curdate(), 8, 17, adddate(kuupaev, interval 21 day)),
+	(curdate(), 16, 11, adddate(kuupaev, interval 21 day)),
+	(curdate(), 22, 29, adddate(kuupaev, interval 21 day)),
+	(curdate(), 17, 18, adddate(kuupaev, interval 21 day))
+;
+
+13. Väljasta lugejate poolt laenutatud raamatud (lugeja ees- ja perenimi ning raamatu pealkiri).
+mysql> select  lug.Eesnimi, lug.Perenimi, raa.Pealkiri, lae.laenamise_id from LUGEJA as lug, RAAMAT as raa, laenutamine as lae where lae.lugeja_id = lug.
+Lugeja_id AND lae.raamatu_id = raa.Raamatu_id;
++----------+----------+--------------------+--------------+
+| Eesnimi  | Perenimi | Pealkiri           | laenamise_id |
++----------+----------+--------------------+--------------+
+| Kristian | Saarela  | Asum               |            1 | 
+| Kristian | Saarela  | Asum               |            2 | 
+| Berit    | Roosa    | Kurit ja karistus  |            3 | 
+| Janek    | Jooksik  | Surma ratsanikud   |            4 | 
+| Luisa    | Tuul     | Kevade             |            5 | 
+| Ragnar   | Roos     | 10 aastat hiljem   |            6 | 
+| Kati     | Kask     | Kunksmoor          |            7 | 
+| Joosep   | Jalakas  | Inimesed maskides  |            8 | 
+| Sandra   | Saar     | Leninismi alustest |            9 | 
+| Liia     | Lips     | Muumitrollid       |           10 | 
+| Kadri    | Kade     | Hiline kevad       |           11 | 
++----------+----------+--------------------+--------------+
+11 rows in set (0.01 sec)

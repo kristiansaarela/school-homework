@@ -1,0 +1,143 @@
+create table laulud (
+	id int not null auto_increment primary key,
+	laulu_nimi varchar(30),
+	esitaja_id int,
+	zanr varchar(15),
+	sonad text,
+	kes_kirjutas varchar(50)
+);
+
+create table lauljad (
+	laulja_id int not null auto_increment primary key,
+	eesnimi varchar(15),
+	perenimi varchar(15)
+);
+
+create table kes_kirjutas (
+	kirjutaja_id int not null auto_increment primary key,
+	eesnimi varchar(15),
+	perenimi varchar(15)
+);
+
+insert into kes_kirjutas (eesnimi, perenimi) values
+	('joonas', 'lesk'),
+	('tom', 'yks'),
+	('jaanus', 'kuusk'),
+	('ave', 'laas'),
+	('timmy', 'jeffery'),
+	('warner', 'denton'),
+	('herbert', 'lover'),
+	('kemp', 'fox'),
+	('duncan', 'darby'),
+	('erick', 'channing'),
+	('don', 'lacey'),
+	('ezra', 'nigellus'),
+	('terry', 'lenard'),
+	('jaymes', 'andre'),
+	('dunstan', 'jasper'),
+;
+
+mysql> select * from kes_kirjutas;
++--------------+---------+----------+
+| kirjutaja_id | eesnimi | perenimi |
++--------------+---------+----------+
+|            1 | joonas  | lesk     | 
+|            2 | tom     | yks      | 
+|            3 | jaanus  | kuusk    | 
+|            4 | ave     | laas     | 
+|            5 | timmy   | jeffery  | 
+|            6 | warner  | denton   | 
+|            7 | herbert | lover    | 
+|            8 | kemp    | fox      | 
+|            9 | duncan  | darby    | 
+|           10 | erick   | channing | 
+|           11 | don     | lacey    | 
+|           12 | ezra    | nigellus | 
+|           13 | terry   | lenard   | 
+|           14 | jaymes  | andre    | 
+|           15 | dunstan | jasper   | 
+|           16 | jarred  | braxton  | 
++--------------+---------+----------+
+16 rows in set (0.00 sec)
+
+
+insert into lauljad (eesnimi, perenimi) values
+	('ford', 'hamo'),
+	('read', 'simon'),
+	('montana', 'maxwell'),
+	('raymond', 'malachi'),
+	('darin', 'charlie'),
+	('sanford', 'mitch'),
+	('marcus', 'devereux'),
+	('albert', 'miles'),
+	('devereux', 'crofton'),
+	('maitland', 'gerry'),
+	('carl', 'braenden'),
+	('wilkie', 'kirk'),
+	('denis', 'wright'),
+	('donovan', 'wilson'),
+	('grecory', 'house')
+;
+
+mysql> select * from lauljad;
++-----------+----------+----------+
+| laulja_id | eesnimi  | perenimi |
++-----------+----------+----------+
+|         1 | ford     | hamo     | 
+|         2 | read     | simon    | 
+|         3 | montana  | maxwell  | 
+|         4 | raymond  | malachi  | 
+|         5 | darin    | charlie  | 
+|         6 | sanford  | mitch    | 
+|         7 | marcus   | devereux | 
+|         8 | albert   | miles    | 
+|         9 | devereux | crofton  | 
+|        10 | maitland | gerry    | 
+|        11 | carl     | braenden | 
+|        12 | wilkie   | kirk     | 
+|        13 | denis    | wright   | 
+|        14 | donovan  | wilson   | 
+|        15 | grecory  | house    | 
++-----------+----------+----------+
+15 rows in set (0.01 sec)
+
+
+insert into laulud (laulu_nimi, esitaja_id, zanr, sonad, kes_kirjutas) values
+	('crazy', '5', 'country', 'crazy - crazycrazycrazycrazycrazycrazycrazycrazy', '8'),
+	('chatanooga choo choo', '2', 'country', 'choo choo choo choo choo choo choo choo choo choo ', '4'),
+	('if i cant have you', '6', 'regge', 'wake up wake up wake up and look around you', '3'),
+	('i will survive', '6', 'drama', 'we are lost inner space and the time is our own', '16'),
+	('hi ho silver lining', '1', 'christmas', 'did you feel the wind? as it blew around', '8'),
+	('jerusalem', '8', 'house', 'wake up wake up wake up and look around you', '10'),
+	('mama mia', '10', 'pop', 'ake up wake up wake up and look around you', '6'),
+	('needle in a haystack', '4', 'country', 'wake up wake up wake up and look around you', '2'),
+	('oh oh antonio', '7', 'love', 'did you feel the wind? as it blew around', '12'),
+	('let me try again', '11', 'rap', 'wake up wake up wake up and look around you', '8'),
+	('sailor', '14', 'pop', 'ake up wake up wake up and look around you', '1'),
+	('que sera sera', '6', 'foregin', 'wake up wake up wake up and look around you', '15'),
+	('rock and roll is king', '1', 'jazz', 'did you feel the wind? as it blew around', '11'),
+	('only you', '9', 'rock and roll', 'wake up wake up wake up and look around you', '9'),
+	('hallelujah', '15', 'drama', 'its a cold and its a broken hallelujah', '12')
+;
+
+mysql> select * from laulud;
++----+-----------------------+------------+---------------+----------------------------------------------------+--------------+
+| id | laulu_nimi            | esitaja_id | zanr          | sonad                                              | kes_kirjutas |
++----+-----------------------+------------+---------------+----------------------------------------------------+--------------+
+|  1 | crazy                 |          5 | country       | crazy - crazycrazycrazycrazycrazycrazycrazycrazy   | 8            | 
+|  2 | chatanooga choo choo  |          2 | country       | choo choo choo choo choo choo choo choo choo choo  | 4            | 
+|  3 | if i cant have you    |          6 | regge         | wake up wake up wake up and look around you        | 3            | 
+|  4 | i will survive        |          6 | drama         | we are lost inner space and the time is our own    | 16           | 
+|  5 | hi ho silver lining   |          1 | christmas     | did you feel the wind? as it blew around           | 8            | 
+|  6 | jerusalem             |          8 | house         | wake up wake up wake up and look around you        | 10           | 
+|  7 | mama mia              |         10 | pop           | ake up wake up wake up and look around you         | 6            | 
+|  8 | needle in a haystack  |          4 | country       | wake up wake up wake up and look around you        | 2            | 
+|  9 | oh oh antonio         |          7 | love          | did you feel the wind? as it blew around           | 12           | 
+| 10 | let me try again      |         11 | rap           | wake up wake up wake up and look around you        | 8            | 
+| 11 | sailor                |         14 | pop           | ake up wake up wake up and look around you         | 1            | 
+| 12 | que sera sera         |          6 | foregin       | wake up wake up wake up and look around you        | 15           | 
+| 13 | rock and roll is king |          1 | jazz          | did you feel the wind? as it blew around           | 11           | 
+| 14 | only you              |          9 | rock and roll | wake up wake up wake up and look around you        | 9            | 
+| 15 | hallelujah            |         15 | drama         | its a cold and its a broken hallelujah             | 12           | 
++----+-----------------------+------------+---------------+----------------------------------------------------+--------------+
+15 rows in set (0.01 sec)

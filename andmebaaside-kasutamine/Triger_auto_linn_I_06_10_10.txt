@@ -1,0 +1,81 @@
+Ülesanded trigerite kohta.
+
+1. Loo tabel AUTO järgmiste väljadega:
+auto_id 	täisarv väli peab olema täidetud primaarvõtme väli,
+mark 	fikseerimata pikkusega tekst sümbolite arv vali ise,
+RegNR	fikseeritud pikkusega 9 sümbolit,
+aasta 	year,
+RegPiirk 	täisarv seotud linnade tabeliga (LINNAD(Linn_ID)).
+
+Kui linnade tabelit ei ole siis saad vastavad käsud ja andmed failist LINN.txt
+
+mysql> create table auto (auto_id int not null primary key auto_increment, mark varchar(50) not null, regnr varchar(9) not null, aasta year, regpiirk int not null, foreign key (regpiirk) references LINNAD(LinnID));
+Query OK, 0 rows affected (0.00 sec)
+
+
+2. Koosta tabel LOGI autoregistris toimuvate muudatuste logimiseks.
+Väljad (id, auto_id, toiming, aeg, mark, RegNR, aasta, RegPiirk).
+
+mysql> create table logi (id int not null primary key auto_increment, auto_id int not null, toiming varchar(50) not null, aeg datetime not null, mark varchar(50) not null, regnr varchar(9) not null, aasta year not null, regpiirk int not null);
+Query OK, 0 rows affected (0.01 sec)
+
+
+3. Loo päästikud lisamiste, kustutamiste, muutmiste logimiseks. Mõtle, mida ja millistesse tulpadesse on kindlasti vajalik kirjutada, et logi järgi oleks võimalik vana seis taastada.
+
+mysql> create trigger lisamine after insert on auto for each row begin insert into logi values ('', NEW.auto_id, 'lisamine', now(), NEW.mark, NEW.regnr, NEW.aasta, NEW.regpiirk); end;;  
+mysql> insert into auto values ('', 'opel', '846548643', '2010', '5');
+mysql> select * from logi;
++----+---------+----------+---------------------+------+-----------+-------+----------+
+| id | auto_id | toiming  | aeg                 | mark | regnr     | aasta | regpiirk |
++----+---------+----------+---------------------+------+-----------+-------+----------+
+|  1 |       1 | lisamine | 2010-10-26 18:56:13 | opel | 846548643 |  2010 |        5 |
++----+---------+----------+---------------------+------+-----------+-------+----------+
+1 row in set (0.00 sec)
+
+
+mysql> create trigger muutmine after update on auto for each row begin insert into logi values ('', NEW.auto_id, 'muutmine', now(), NEW.mark, NEW.regnr, NEW.aasta, NEW.regpiirk); end;;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> update auto set mark = 'bmw' where auto_id = 1;
+Query OK, 1 row affected, 1 warning (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from logi;
++----+---------+----------+---------------------+------+-----------+-------+----------+
+| id | auto_id | toiming  | aeg                 | mark | regnr     | aasta | regpiirk |
++----+---------+----------+---------------------+------+-----------+-------+----------+
+|  1 |       1 | lisamine | 2010-10-26 18:56:13 | opel | 846548643 |  2010 |        5 |
+|  2 |       1 | muutmine | 2010-10-07 19:03:28 | bmw  | 846548643 |  2010 |        5 |
++----+---------+----------+---------------------+------+-----------+-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> create trigger kustutamine after delete on auto for each row begin insert into logi values ('', OLD.auto_id, 'kustutamine', now(), OLD.mark, OLD.regnr, OLD.aasta, OLD.regpiirk); end;;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from auto where auto_id = 1;
+
+
+mysql> select * from logi;
++----+---------+-------------+---------------------+------+-----------+-------+----------+
+| id | auto_id | toiming     | aeg                 | mark | regnr     | aasta | regpiirk |
++----+---------+-------------+---------------------+------+-----------+-------+----------+
+|  1 |       1 | lisamine    | 2010-10-26 18:56:13 | opel | 846548643 |  2010 |        5 |
+|  2 |       1 | muutmine    | 2010-10-07 19:03:28 | bmw  | 846548643 |  2010 |        5 |
+|  3 |       1 | kustutamine | 2010-10-07 19:07:15 | bmw  | 846548643 |  2010 |        5 |
++----+---------+-------------+---------------------+------+-----------+-------+----------+
+3 rows in set (0.00 sec)
+
+
+
+
+4. Tee päring, mis näitab etteantud auto_id korral, milliseid toiminguid selle autoga on tehtud ajas vanematest sündmustest uuemateni. Päringu tulemus võiks olla loetav (lisa sobivaid sõnu).
+
+mysql> select concat('auto mille id number on ', auto_id, ' on tehtud ', toiming) as toiming from logi where auto_id = 1;
++-------------------------------------------------+
+| toiming                                         |
++-------------------------------------------------+
+| auto mille id number on 1 on tehtud lisamine    |
+| auto mille id number on 1 on tehtud muutmine    |
+| auto mille id number on 1 on tehtud kustutamine |
++-------------------------------------------------+
+3 rows in set (0.00 sec)

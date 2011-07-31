@@ -1,0 +1,97 @@
+'v'ggt
+t
+-- phpMyAdmin SQL Dump
+-- version 2.10.1
+-- http://www.phpmyadmin.net
+-- 
+-- Host: localhost
+-- Generation Time: Dec 09, 2009 at 07:17 AM
+-- Server version: 5.0.41
+-- PHP Version: 5.2.2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+-- 
+-- Database: `anna`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `session`
+-- 
+
+CREATE TABLE `session` (
+  `sid` varchar(32) collate latin1_general_ci NOT NULL,
+  `username` varchar(16) collate latin1_general_ci default NULL,
+  `user_data` text collate latin1_general_ci,
+  `svars` text collate latin1_general_ci,
+  `created` datetime NOT NULL,
+  `changed` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `login_ip` varchar(255) collate latin1_general_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- 
+-- Dumping data for table `session`
+-- 
+
+INSERT INTO `session` VALUES ('4c09c1c5bc970caaef5f0204d6bbf36a', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:45:34', '2009-12-08 20:45:34', '127.0.0.1');
+INSERT INTO `session` VALUES ('47877b11101413cada052988e582cc27', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:50:08', '2009-12-08 20:50:08', '127.0.0.1');
+INSERT INTO `session` VALUES ('7511a0d800461e0c35092fd83f5d4f89', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:50:46', '2009-12-08 20:50:46', '127.0.0.1');
+INSERT INTO `session` VALUES ('56ba61ce31736275b434a78a740ad522', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:50:57', '2009-12-08 20:50:57', '127.0.0.1');
+INSERT INTO `session` VALUES ('c0eb31edae74748e74f796fe2c2417bf', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:51:54', '2009-12-08 20:51:54', '127.0.0.1');
+INSERT INTO `session` VALUES ('904462be886ba3655fa518cf9320d9ac', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:52:07', '2009-12-08 20:56:03', '127.0.0.1');
+INSERT INTO `session` VALUES ('a95f2e67cece412e414d732ddf21c558', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:56:15', '2009-12-08 20:56:15', '127.0.0.1');
+INSERT INTO `session` VALUES ('60eceaf3569532f1084db4f6db12a5e2', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:58:02', '2009-12-08 20:58:34', '127.0.0.1');
+INSERT INTO `session` VALUES ('b12c52da144b45883b3aa73a30da1dc8', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:59:05', '2009-12-08 20:59:05', '127.0.0.1');
+INSERT INTO `session` VALUES ('7a0b952e7a3352f7c20cd26374c06163', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:42:47', '2009-12-08 20:42:47', '127.0.0.1');
+INSERT INTO `session` VALUES ('abe0999f0efa2501c4c71fcc280a4057', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:43:02', '2009-12-08 20:44:11', '127.0.0.1');
+INSERT INTO `session` VALUES ('5cd25759b70f8ae2c5212657cd60c4f4', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:44:19', '2009-12-08 20:44:19', '127.0.0.1');
+INSERT INTO `session` VALUES ('d12256c4bf21621889fbc6959a031b9c', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:37:07', '2009-12-08 20:37:07', '127.0.0.1');
+INSERT INTO `session` VALUES ('28c762d309bc08077ffc66b3b10cb30a', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:37:31', '2009-12-08 20:41:45', '127.0.0.1');
+INSERT INTO `session` VALUES ('c72cd67c7d881eaff802c51ba3af1f12', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:58:39', '2009-12-08 20:58:50', '127.0.0.1');
+INSERT INTO `session` VALUES ('e0abb980e6dd7e3754637073546703d6', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 21:00:19', '2009-12-08 21:00:22', '127.0.0.1');
+INSERT INTO `session` VALUES ('dee75555e2f3c5469a61186bbc363d7e', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 21:00:30', '2009-12-08 21:00:30', '127.0.0.1');
+INSERT INTO `session` VALUES ('fd0d646d59beba8fea6821939ceaf0ec', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', 'a:0:{}', '2009-12-08 20:34:40', '2009-12-08 20:34:41', '127.0.0.1');
+INSERT INTO `session` VALUES ('b28102859301c75dbc0b47bb7d23c1ea', 'anna', 'a:3:{s:8:"username";s:4:"anna";s:6:"passwd";s:32:"eabd8ce9404507aa8c22714d3f5eada9";s:5:"email";s:14:"anna@test.anna";}', NULL, '2009-12-08 20:36:40', '2009-12-08 20:36:40', '127.0.0.1');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `task`
+-- 
+
+CREATE TABLE `task` (
+  `username` varchar(16) collate latin1_general_ci NOT NULL,
+  `task_description` varchar(255) collate latin1_general_ci NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- 
+-- Dumping data for table `task`
+-- 
+
+INSERT INTO `task` VALUES ('anna', 'esimene', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `user`
+-- 
+
+CREATE TABLE `user` (
+  `username` varchar(16) collate latin1_general_ci NOT NULL,
+  `passwd` char(40) collate latin1_general_ci NOT NULL,
+  `email` varchar(100) collate latin1_general_ci NOT NULL,
+  PRIMARY KEY  (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- 
+-- Dumping data for table `user`
+-- 
+
+INSERT INTO `user` VALUES ('test', '4a0cde71aee7158542d013fc0c9f5acfc735c612', 'test@anna');
+INSERT INTO `user` VALUES ('test@test.test', 'eabd8ce9404507aa8c22714d3f5eada9', 'test');
+INSERT INTO `user` VALUES ('anna', 'eabd8ce9404507aa8c22714d3f5eada9', 'anna@test.anna');
+INSERT INTO `user` VALUES ('anna.pugatsova', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'anna.pugatsova@khk.tartu.ee');

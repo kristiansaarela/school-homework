@@ -1,0 +1,81 @@
+Tabeli muutmine - käsk ALTER TABLE
+Kopeeri kõik käsud koos tulemustega vastava ülesande juurde.
+
+1. Loo tabel Employee järgnevate väljade ja andmetüüpidega:
+
+id täisarv,
+eesnimi tekst fikseerimata pikkusega 15 sümbolit,
+perenimi tekst fikseerimata pikkusega 15 sümbolit,
+alguskuup kuupäev,
+loppkuup kuupäev,
+palk reaalarv täisosa pikkus 8 kohta ,
+linn tekst fikseerimata pikkusega 10 sümbolit,
+description tekst fikseerimata pikkusega 15 sümbolit.
+
+
+create table employee (
+id int primary key,
+eesnimi varchar(15),
+perenimi varchar(15),
+alguskuup date,
+loppkuup date,
+palk decimal(8,2),
+linn varchar(10),
+description varchar(15)
+);
+
+
+2. Too exceli failist Employee.xls andmed loodud tabelisse.
+mysql> load data infile '/usr/home/atp08/kristian_s/andmed.csv' into table employee fields terminated by ';' lines terminated by '\r\n'; 
+3. Nimeta tabel Employee ümber tabeliks TOOTAJA.
+mysql> alter table employee rename to tootja;
+4. Suurenda välja linn pikkust 20 sümboli võrra.
+mysql> alter table tootja modify linn varchar(20);
+5. Asenda välja description nimetus nimega Amet.
+mysql> alter table tootja change description amet varchar(15);
+6. Lisa tabelisse uus veerg Haridus. Mõtle, mis tüüpi andmetega on tegemist!
+mysql> alter table tootja add column haridus varchar(20);
+7. Määra tabelis primaarvõtme väli. Mõtle, milline väli sobiks selleks! 
+olemas juba
+8. Loo uus tabel, milles oleksid väljad Amet ja Palk.
+mysql> create table tootja_andmed ( tid int primary key, amet varchar(15), palk decimal(8,2) );
+9. Sisesta tabelisse andmed.
+mysql> insert into tootja_andmed values (1, 'programmeerija', 12304.56), (2, 'testija', 6661.78), (3, 'testija', 6661.78), (4, 'juhataja', 20344.62), (5, 'testija', 6661.78), (6, 'testija', 6661.78), (7, 'juhtaja', 20344.62), (8, 'testija', 6661.78);
+10. Kustuta tabelist TOOTAJA veerg palk.
+mysql> alter table tootja drop palk;
+11. Väljasta töötaja eesnimi, perenimi, amet ja palk.
+mysql> select t.eesnimi, t.perenimi, t.amet, a.palk from tootja t, tootja_andmed a where a.tid = t.id;
++---------+----------+----------------+----------+
+| eesnimi | perenimi | amet           | palk     |
++---------+----------+----------------+----------+
+| Jason   | Martin   | programmeerija | 12304.56 | 
+| Alison  | Mathews  | testija        |  6661.78 | 
+| James   | Smith    | testija        |  6661.78 | 
+| Celia   | Rice     | juhataja       | 20344.62 | 
+| Robert  | Black    | testija        |  6661.78 | 
+| Linda   | Green    | testija        |  6661.78 | 
+| David   | larry    | juhataja       | 20344.62 | 
+| James   | cat      | testija        |  6661.78 | 
++---------+----------+----------------+----------+
+8 rows in set (0.00 sec)
+12. Leia mitu töötajat elab igas linnas.
+mysql> select count(linn), linn from tootja group by linn;
++-------------+-----------+
+| count(linn) | linn      |
++-------------+-----------+
+|           2 | New York  | 
+|           1 | Toronto   | 
+|           5 | Vancouver | 
++-------------+-----------+
+3 rows in set (0.00 sec)
+
+13. Leia iga ameti esindajate arv.
+mysql> select count(amet), amet from tootja group by amet;
++-------------+----------------+
+| count(amet) | amet           |
++-------------+----------------+
+|           2 | juhataja       | 
+|           1 | programmeerija | 
+|           5 | testija        | 
++-------------+----------------+
+3 rows in set (0.00 sec)

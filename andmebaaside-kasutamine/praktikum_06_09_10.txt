@@ -1,0 +1,119 @@
+1. Ava avalikult kettalt AB kasutamise kaustast failid synnid.xls ja emad.xls.
+2. Loo antud failide andmete põhjal tabelid SYNNID ja EMAD (välisvõtmeid ei pea tingimata kasutama).
+
+mysql> CREATE TABLE SYNNID (Synnikuupaev DATE, Ema_id INT, L_nimi varchar(20), Elukoht varchar(20), Synniaeg TIME, Synnikaal INT, Synnipikkus INT, SUGU CHAR(1));
+
+mysql> CREATE TABLE EMAD (Ema_id INT auto_increment PRIMARY KEY , Ema_nimi varchar(20), Vanus INT, Laste_arv INT);
+
+3. Vii tekstifailides olevad andmed vastavatesse tabelitesse.
+
+mysql> LOAD DATA INFILE '/usr/home/atp08/kristian_s/emad.csv' INTO TABLE EMAD FIELDS TERMINATED BY ';' LINES TERMINATED BY  '\r\n' IGNORE 1 LINES; 
+
+mysql> LOAD DATA INFILE '/usr/home/atp08/kristian_s/synnid.csv' INTO TABLE SYNNID FIELDS TERMINATED BY ';' LINES TERMINATED BY  '\r\n' IGNORE 1 LINES; 
+
+4. Väljasta laste nimed, sünnikuupaevad, synnikohad ja emade nimed.
+
+SELECT SYNNID.L_nimi, SYNNID.Synnikuupaev, SYNNID.Elukoht, EMAD.Ema_id   FROM SYNNID,EMAD WHERE SYNNID.Ema_id=EMAD.Ema_id ;
+
+
+5. Leia laste keskmine synnikaal.
+
+mysql> SELECT AVG(Synnikaal) FROM SYNNID;
++----------------+
+| AVG(Synnikaal) |
++----------------+
+|      3423.8462 | 
++----------------+
+1 row in set (0.00 sec)
+
+
+6. Leia laste keskmised synnikaalud elukohtade järgi.
+
+
+mysql> SELECT Elukoht,  AVG(Synnikaal) FROM SYNNID GROUP BY Elukoht ;
++------------+----------------+
+| Elukoht    | AVG(Synnikaal) |
++------------+----------------+
+| Elukoht    |         0.0000 | 
+| Helsingi   |      3545.0000 | 
+| Keila      |      2462.0000 | 
+| Kuressaare |      3186.0000 | 
+| Paide      |      3663.3333 | 
+| Tallinn    |      3524.3824 | 
+| Tartu      |      3392.0000 | 
+| Tyri       |      4040.0000 | 
+| Viljandi   |      3460.0000 | 
++------------+----------------+
+9 rows in set (0.00 sec)
+
+
+7. Väljasta laste nimed, synnikaalud kilogrammides, synnipikkused sentimeetrites. Tabeli päises nimeta väljanimed vastavalt ümber.
+
+ SELECT L_nimi AS Laste_nimed, Synnikaal/1000 AS Synnikaal_kilogrammides,Synnipikkus AS Synnipikkus_sentimeetritest FROM SYNNID; 
+
+8. Leia mitu last sündis igas kuus?
+
+SELECT COUNT(L_nimi) AS Syndinute_arv , Synnikuupaev FROM SYNNID  GROUP BY MONTH( Synnikuupaev);
+
+9. Leia mitu last sündis veebruaris igal päeval?
+
+mysql> SELECT COUNT(L_nimi) AS Syndinute_arv , Synnikuupaev FROM SYNNID  WHERE MONTH(Synnikuupaev) = 2 GROUP BY Synnikuupaev;
+
+10. Kas leidub selliseid lapsi, kes on sündinud ühel ja samal kellaajal?
+
+mysql> SELECT Synniaeg FROM SYNNID GROUP BY Synniaeg HAVING COUNT(Synniaeg) > 1;
+
+
+11. Leia poste ja tüdrukute keskmine kaal.
+
+mysql> SELECT Sugu ,AVG(Synnikaal) FROM SYNNID  GROUP BY Sugu;
+
+
+12. Leia iga linna kohta seal sündinud tüdrukute ja poiste arv.
+
+SELECT COUNT(L_nimi), Elukoht  FROM SYNNID GROUP BY Elukoht;
+
+
+13. Leia keskmine laste arv peres (vt tabel emad).
+
+SELECT AVG(Laste_arv) AS Keskmine_laste_Arv_peres FROM EMAD;
+
+14. Leia laste arv peredes linnade kaupa (vt tabel emad).
+
+mysql> SELECT s.Elukoht, COUNT(e.Laste_arv) AS arv FROM SYNNID AS s, EMAD as e WHERE e.Ema_id = s.Ema_id GROUP BY Elukoht;
++------------+-----+
+| Elukoht    | arv |
++------------+-----+
+| Adavere    |   1 | 
+| Helsingi   |   1 | 
+| Keila      |   1 | 
+| Kuressaare |   1 | 
+| Paide      |   3 | 
+| Tallinn    |  34 | 
+| Tartu      |   9 | 
+| Tyri       |   1 | 
+| Viljandi   |   1 | 
++------------+-----+
+9 rows in set (0.00 sec)
+
+
+15. Leia kui palju on keskmiselt peres lapsi linnade kaupa (vt tabel emad).
+
+mysql> SELECT s.Elukoht, avg(e.Laste_arv) AS arv FROM SYNNID AS s, EMAD as e WHERE e.Ema_id = s.Ema_id GROUP BY Elukoht;
++------------+--------+
+| Elukoht    | arv    |
++------------+--------+
+| Adavere    | 2.0000 | 
+| Helsingi   | 2.0000 | 
+| Keila      | 1.0000 | 
+| Kuressaare | 1.0000 | 
+| Paide      | 1.6667 | 
+| Tallinn    | 1.5588 | 
+| Tartu      | 1.4444 | 
+| Tyri       | 2.0000 | 
+| Viljandi   | 2.0000 | 
++------------+--------+
+9 rows in set (0.01 sec)
+
+
+16. Loo vaade, kus iga linna kohta on info: sündinud laste arvu, keskmise sünnikaalu, keskmise sünnipikkuse, sündinud poiste ja tüdrukute arvu kohta.

@@ -1,0 +1,125 @@
+@font-face {
+	font-family: new;
+	src: url('Corleone.ttf');
+}
+
+body {
+	font: 12px Arial, Helvetica, sans-serif;
+	padding: 24px;
+}
+
+#wrapper {
+	width: 450px;
+	margin: auto;
+}
+
+h1 {
+	font: 35px new, Georgia, serif;
+	color: #544156;
+	margin-bottom: 24px; /* asdasd */
+}
+ul { width: 400px }
+ul ul { padding: 8px 0 12px 24px }
+ul li {
+	position: relative;
+	border: 1px solid #ccc;
+	margin-bottom: 8px;
+	background-color: #fff;
+	-moz-border-radius: 0 0 12px 12px;
+}
+ul li:hover {
+	border-color: #aaa;
+	-webkit-box-shadow: 1px 1px 8px rgba(0,0,0,.30);
+	-moz-box-shadow: 1px 1px 8px rgba(0,0,0,.30);
+	box-shadow: 1px 1px 8px rgba(0,0,0,.30);
+}
+ul a {
+	position: absolute;
+	right: 8px;
+	bottom: 4px;
+	color: #aaa;
+	text-decoration: none;
+}
+ul a:hover { color: #555 }
+ul p, ul div {
+	padding: 4px 8px;
+}
+ul div {
+	position: relative;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #ccc;
+	background-color: #eee;
+}
+ul div h2 {
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+}
+ul div p {
+	position: absolute;
+	top: 4px;
+	right: 8px;
+	padding: 0;
+}
+
+ul label[for^="m"] { color: red }
+ul label[for^="p"] { color: green }
+ul label, ul input { vertical-align: middle }
+
+input[type='text'], input[type='password'], textarea {
+	padding: 4px 8px;
+	/* padding: top right bottom left */
+	border: 1px solid;
+	border-color: #aaa #ccc #ccc #aaa;
+	width: 180px;
+	font: 12px Arial, Helvetica, sans-serif;
+	border-radius: 3px;
+}
+input[type='text']:hover, input[type='password']:hover, textarea:hover {
+	border-color: #666;
+	background-color: #f3f3f3;
+}
+input[type='text']:focus, input[type='password']:focus, textarea:focus {
+	outline: 2px solid #175091;
+}
+form {
+	padding: 24px 0;
+}
+form p {
+	margin-bottom: 8px
+}
+form label {
+	display: inline-block;
+	width: 50px;
+	vertical-align: top;
+}
+
+input[type='submit'] {
+	border: 1px solid #666;
+	color: #fff;
+	padding: 5px;
+	background-color: #175091;
+	margin-left: 53px;
+	border-radius: 3px;
+}
+
+blockquote {
+	padding: 0 24px 24px;
+	font-style: italic;
+	color: #888;
+}
+
+input[type='submit']:hover {
+	color: #fff;
+	background-color: #000;
+}
+
+#wrapper div { position: relative; }
+
+img {
+	position: absolute;
+	top: -235px;
+	left: 270px;
+}
+
+#login {display: none;}
+#toggleLogin {border-bottom: 1px solid #ccc; text-align: center; margin-bottom: 15px;}

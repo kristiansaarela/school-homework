@@ -1,0 +1,26 @@
+a_id;lao_id;Aadress;Linn;Maakond
+1;2;Turu 134;Tartu;Tartumaa
+2;2;Aia 17;Viljandi;Viljandimaa
+3;2;Puiestee 45;Parnu;Parnumaa
+4;3;Siili 124;Tartu;Tartumaa
+5;3;Janese 23;Viljandi;Viljandimaa
+6;3;Juustu 17;Parnu;Parnumaa
+7;4;Haaviku 11;Tallinn;Harjumaa
+8;5;Piiri 14;Narva;Ida-Virumaa
+9;7;Jalaka 12;Johvi;Ida-Virumaa
+10;5;Jaani 34;Johvi;Ida-Virumaa
+11;7;Puiestee 122;Narva;Ida-Virumaa
+12;8;Tahe 23;Tallinn;Harjumaa
+13;5;Tuulepea 67;Tallinn;Harjumaa
+14;8;Sadama 89;Parnu;Parnumaa
+15;9;Mere pst 45;Kuressaare;Saaremaa
+16;9;Jarve 34;Viljandi;Viljandimaa
+17;5;Kesk 12 ;Paide;Jarvamaa
+18;10;Piiri 69;Valga;Valgamaa
+19;5;Kooli 11;Valga;Valgamaa
+20;10;Tamme pst 91;Tartu;Tartumaa
+21;6;Kastani 55;Tartu;Tartumaa
+22;7;Kloostri 44;Tallinn;Harjumaa
+23;6;Kesk 85;Viljandi;Viljandimaa
+24;8;Kase 32;Narva;Ida-Virumaa
+25;9;Ranna pst 11;Parnu;Parnumaa

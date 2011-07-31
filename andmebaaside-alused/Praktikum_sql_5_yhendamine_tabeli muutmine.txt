@@ -1,0 +1,234 @@
+Praktikum 5
+
+1. Lisa tabelisse RAAMAT üüs väli Tiraaz, mis on täisarvu tüüpi.
+mysql> alter table RAAMAT add Tiraaz int;
+
+2.Muuda tabelis RAAMAT väli Koht väljaks Valjaandja
+mysql> alter table RAAMAT change Koht Valjaandja varchar(50);
+
+3. Muuda tabelis RAAMAT välja Valjaandja andmetüüpi, uueks tüübiks varchar(150)
+mysql> alter table RAAMAT modify Valjaandja varchar(150);
+
+4. Kustuta tabelist RAAMAT väli Tiraaz.
+mysql> alter table RAAMAT drop column Tiraaz;
+
+5. Väljasta raamatute pealkirjad, mida on lugejad laenutanud.
+mysql> select raa.pealkiri from RAAMAT as raa, laenutamine as lae where lae.raamatu_id = raa.Raamatu_id;
++--------------------+
+| pealkiri           |
++--------------------+
+| Asum               | 
+| Asum               | 
+| Leninismi alustest | 
+| Inimesed maskides  | 
+| Hiline kevad       | 
+| Surma ratsanikud   | 
+| Kunksmoor          | 
+| Muumitrollid       | 
+| 10 aastat hiljem   | 
+| Kevade             | 
+| Kurit ja karistus  | 
++--------------------+
+11 rows in set (0.00 sec)
+
+
+6. Väljasta raamatute pealkirjad ja mitu korda on igat raamatut väljalaenatud.
+mysql> select Pealkiri, count(laenamise_id) from laenutamine l, RAAMAT r where l.Raamatu_id = r.Raamatu_id group by Pealkiri;
++--------------------+---------------------+
+| Pealkiri           | count(laenamise_id) |
++--------------------+---------------------+
+| 10 aastat hiljem   |                   1 | 
+| Asum               |                   2 | 
+| Hiline kevad       |                   1 | 
+| Inimesed maskides  |                   1 | 
+| Kevade             |                   1 | 
+| Kunksmoor          |                   1 | 
+| Kurit ja karistus  |                   1 | 
+| Leninismi alustest |                   1 | 
+| Muumitrollid       |                   1 | 
+| Surma ratsanikud   |                   1 | 
++--------------------+---------------------+
+10 rows in set (0.01 sec)
+
+
+7. Muuda laenutamise tabelit lisades 4 kirjele tagastamisajad.
+mysql> update laenutamine set tagastamine = curdate() where laenamise_id = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update laenutamine set tagastamine = curdate() where laenamise_id = 5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update laenutamine set tagastamine = '2010-01-17' where laenamise_id = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update laenutamine set tagastamine = '2010-02-2' where laenamise_id = 8;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+8. Leia laenutajad, kes on oma raamatu tagastanud.
+mysql> select lug.Eesnimi, lug.Perenimi from LUGEJA as lug, laenutamine as l where l.tagastamine is not null and l.lugeja_id = lug.Lugeja_id;
++----------+----------+
+| Eesnimi  | Perenimi |
++----------+----------+
+| Kristian | Saarela  | 
+| Berit    | Roosa    | 
+| Luisa    | Tuul     | 
+| Joosep   | Jalakas  | 
++----------+----------+
+4 rows in set (0.00 sec)
+
+
+
+9. Väljasta raamatuid laenutanud lugejate ees- ja perekonnanimed.
+mysql> select lug.Eesnimi, lug.Perenimi from LUGEJA as lug, laenutamine as l where l.lugeja_id = lug.Lugeja_id;
++----------+----------+
+| Eesnimi  | Perenimi |
++----------+----------+
+| Kristian | Saarela  | 
+| Kristian | Saarela  | 
+| Kati     | Kask     | 
+| Joosep   | Jalakas  | 
+| Ragnar   | Roos     | 
+| Luisa    | Tuul     | 
+| Sandra   | Saar     | 
+| Kadri    | Kade     | 
+| Liia     | Lips     | 
+| Janek    | Jooksik  | 
+| Berit    | Roosa    | 
++----------+----------+
+11 rows in set (0.00 sec)
+
+
+10. Leia mitu raamatut on iga laenutaja laenanud kokku (väljasta llugeja ees- ja perenimi ning laenutuste arv)
+mysql> select lug.Eesnimi, lug.Perenimi, count(l.lugeja_id) as laenutuste_arv from LUGEJA as lug, laenutamine as l where l.lugeja_id = lug.Lugeja_id group by lug.Perenimi;
++----------+----------+----------------+
+| Eesnimi  | Perenimi | laenutuste_arv |
++----------+----------+----------------+
+| Joosep   | Jalakas  |              1 | 
+| Janek    | Jooksik  |              1 | 
+| Kadri    | Kade     |              1 | 
+| Kati     | Kask     |              1 | 
+| Liia     | Lips     |              1 | 
+| Ragnar   | Roos     |              1 | 
+| Berit    | Roosa    |              1 | 
+| Sandra   | Saar     |              1 | 
+| Kristian | Saarela  |              2 | 
+| Luisa    | Tuul     |              1 | 
++----------+----------+----------------+
+10 rows in set (0.00 sec)
+
+
+11. Grupeeri raamatud väljaandmise aastate järgi ja leia igal aastal lehekülgede arv ja hind kokku. 
+mysql> select Aasta,  sum(Lk_arv) as lk_kokku, sum(Hind) as hind_kokku from RAAMAT group by Aasta;
++-------+----------+------------+
+| Aasta | lk_kokku | hind_kokku |
++-------+----------+------------+
+|  1920 |      459 |        235 | 
+|  1923 |      145 |         45 | 
+|  1928 |      287 |         63 | 
+|  1938 |      234 |        327 | 
+|  1944 |      287 |         56 | 
+|  1945 |      625 |        111 | 
+|  1948 |      253 |         72 | 
+|  1950 |      175 |         43 | 
+|  1951 |      176 |         23 | 
+|  1955 |      183 |        821 | 
+|  1956 |      682 |         62 | 
+|  1963 |      645 |        143 | 
+|  1964 |      312 |         83 | 
+|  1966 |       67 |         75 | 
+|  1968 |      189 |         29 | 
+|  1971 |       56 |         45 | 
+|  1973 |      885 |         53 | 
+|  1975 |      198 |         55 | 
+|  1976 |      193 |         35 | 
+|  1977 |      385 |         87 | 
+|  1978 |      265 |         61 | 
+|  1980 |      150 |         45 | 
+|  1982 |      199 |         26 | 
+|  1985 |      187 |        876 | 
+|  1986 |      324 |        140 | 
+|  1988 |      315 |        117 | 
+|  1989 |      919 |        294 | 
+|  1992 |      287 |          1 | 
+|  1996 |        2 |        450 | 
+|  1997 |      195 |        488 | 
+|  1998 |        4 |         77 | 
++-------+----------+------------+
+31 rows in set (0.01 sec)
+
+
+
+12. Leia kõigi raamatute kogumaksumus, raamatute keskmine maksumus, kõige odavam ja kallim raamat. 
+mysql> select sum(Hind) as kogumaksumus, round(avg(Hind), 2) as keskmine_hind, min(Hind) as odavam, max(Hind) as kallim from RAAMAT;
++--------------+---------------+--------+--------+
+| kogumaksumus | keskmine_hind | odavam | kallim |
++--------------+---------------+--------+--------+
+|         5038 |        122.88 |      1 |    876 | 
++--------------+---------------+--------+--------+
+1 row in set (0.00 sec)
+
+
+13. Milliseid raamatuid ei ole välja laenatud?
+
+
+14. Milline raamat on laenatud välja esimesena, milline viimasena?
+mysql> select max(kuupaev) as viimane, min(kuupaev) as esimene from laenutamine;
++------------+------------+
+| viimane    | esimene    |
++------------+------------+
+| 2010-01-06 | 2009-12-12 | 
++------------+------------+
+1 row in set (0.00 sec
+
+15. Leia lugejate sooline jaotuvus (palju nais-, palju meessoost).
+mysql> select if(mod(left(Isikukood, 1), 2) = 0, 'naine', 'mees') as sugu, Eesnimi, Perenimi from LUGEJA;
++-------+----------+----------+
+| sugu  | Eesnimi  | Perenimi |
++-------+----------+----------+
+| mees  | Kristian | Saarela  | 
+| mees  | Kalle    | Kohin    | 
+| naine | Tiia     | Tuisk    | 
+| naine | Pille    | Pill     | 
+| naine | Kati     | Kask     | 
+| naine | Malle    | Moos     | 
+| naine | Mari     | Maasikas | 
+| mees  | Joosep   | Jalakas  | 
+| mees  | Tiit     | Tikk     | 
+| mees  | Ragnar   | Roos     | 
+| mees  | Robert   | Rohi     | 
+| mees  | Kevin    | Kivi     | 
+| naine | Sille    | Siil     | 
+| naine | Lilli    | Lill     | 
+| naine | Luisa    | Tuul     | 
+| naine | Sandra   | Saar     | 
+| naine | Kadri    | Kade     | 
+| mees  | Vaiko    | Kook     | 
+| mees  | Veiko    | Vesi     | 
+| mees  | Hannes   | Hein     | 
+| mees  | Leo      | Loots    | 
+| naine | Liia     | Lips     | 
+| mees  | Kalev    | Komm     | 
+| naine | Rita     | Rehv     | 
+| mees  | Janek    | Jooksik  | 
+| naine | Jane     | Jnes     | 
+| mees  | Mart     | Karu     | 
+| naine | Kati     | Karu     | 
+| mees  | Joosep   | Sinine   | 
+| naine | Berit    | Roosa    | 
++-------+----------+----------+
+30 rows in set (0.01 sec)
+
+mysql> select sugu, count(ees)  from (select if(mod(left(Isikukood, 1), 2) = 0, 'naine', 'mees') as sugu, Eesnimi as ees, Perenimi as pere from LUGEJA) as t group by sugu;
++-------+------------+
+| sugu  | count(ees) |
++-------+------------+
+| mees  |         15 | 
+| naine |         15 | 
++-------+------------+
+2 rows in set (0.00 sec)
+

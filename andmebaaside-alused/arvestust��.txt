@@ -1,0 +1,289 @@
+KONTROLLTÖÖ AINES ANDMEBAASIDE ALUSED
+
+NIMI: kristian saarela
+1. Sisestage faili algusesse oma nimi.
+2. Järgnevate ülesannete tegemisel kopeerida sisestatud MySql’i käsud  ja saadud tulemused vastava käsu juurde.
+Käskude sisestamisel kasutage kooli ABserverit hostiga 193.40.58.150
+3.(5p)   Loo oma MySql'i andmebaasi andmetabel HIIR, milles on järgmised andmeväljad:
+Hiire_ID - täisarv primaarvõtme väli ja automaatselt suurenev ning ei tohi olla null,
+Nimi tekst, väärtus ei tohi olla null,
+Kaal täisarv,
+Synniaasta aasta,
+Ema_ID täisarv.
+Lisa ka primaarvõtmeväli (Hiire_ID), mis on suureneb andmete lisamisel automaatselt.
+
+
+mysql> create table hiir (
+    -> hiire_id int not null auto_increment primary key,
+    -> nimi varchar(30) not null,
+    -> kaal int,
+    -> synniaasta year,
+    -> ema_id int);
+Query OK, 0 rows affected (0.00 sec)
+
+
+4.(3p)	Lisa tabelisse järgnevalt toodud andmed
+Nimi		Kaal_gr	Synniaasta	Ema_ID
+Piiks		120		2009		1
+Triip		80		2009		2
+Mustu		95		2008		3
+Troll		110		2007		1
+Rulli		105		2008		1
+Trips		130		2006		2
+Emma		120		2007		2
+Miia		85		2006		2
+
+
+mysql> insert into hiir (nimi, kaal, synniaasta, ema_id) values ('piiks', 120, 2009, 1), ('triip', 80, 2009, 2), ('mustu', 95, 2008, 3), ('troll', 110, 2007, 1), ('rulli', 105, 2008, 1), ('trips', 130, 2006, 2), ('emma', 120, 2007, 2), ('miia', 85, 2006, 2);
+Query OK, 8 rows affected, 8 warnings (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 8
+
+
+5.(3p)	Järjesta hiired kaalu järgi kahanevalt (väljasta nimi ja kaal). 
+
+
+mysql> select nimi, kaal from hiir order by kaal desc;
++-------+------+
+| nimi  | kaal |
++-------+------+
+| trips |  130 | 
+| piiks |  120 | 
+| emma  |  120 | 
+| troll |  110 | 
+| rulli |  105 | 
+| mustu |   95 | 
+| miia  |   85 | 
+| triip |   80 | 
++-------+------+
+8 rows in set (0.00 sec)
+
+
+6.(3p)  Leia kõige kergema hiire kaal. 
+
+mysql> select min(kaal) as kergeim from hiir;
++---------+
+| kergeim |
++---------+
+|      80 | 
++---------+
+1 row in set (0.00 sec)
+
+
+7.(3p)	Leia hiirte keskmine kaal.
+
+mysql> select avg(kaal) as keskmine from hiir;
++----------+
+| keskmine |
++----------+
+| 105.6250 | 
++----------+
+1 row in set (0.00 sec)
+
+
+8.(2p)	Ümarda eelnevalt saadud vastust nii, et oleks kaks koht peale koma.
+
+mysql> select round(avg(kaal), 2) as keskmine from hiir;
++----------+
+| keskmine |
++----------+
+|   105.63 | 
++----------+
+1 row in set (0.00 sec)
+
+
+9.(2p) Muuda Tripsi sünniaasta, uus sünniaasta on 2007. 
+
+mysql> update hiir set synniaasta = 2007 where nimi = 'trips';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+10.(2p)	Lisa tabelisse HIIR järgmine hiir: Donna kaaluga 110, sünniaasta 2009 ja Ema_ID 3.
+
+mysql> insert into hiir (nimi, kaal, synniaasta, ema_id) values ('donna', 110, 2009, 3);
+Query OK, 1 row affected (0.00 sec)
+
+
+Kustuta tabelist 2006 aastal sündinud hiired.
+
+mysql> delete from hiir where synniaasta = 2006;
+Query OK, 1 row affected (0.00 sec)
+
+
+11.(3p)	Leia hiirte vanused (väljasta hiire nimi ja vanus).
+
+mysql> select nimi, year(curdate())-synniaasta as vanus from hiir;
++-------+-------+
+| nimi  | vanus |
++-------+-------+
+| piiks |     1 | 
+| triip |     1 | 
+| mustu |     2 | 
+| troll |     3 | 
+| rulli |     2 | 
+| trips |     3 | 
+| emma  |     3 | 
+| donna |     1 | 
++-------+-------+
+8 rows in set (0.00 sec)
+
+
+12. (2p) Muuda eelnevat päringut lisades iga aasta juurde sõna "aastane". nt Piiks 3-aastane
+
+mysql> select nimi, concat(year(curdate())-synniaasta, "-aastane") as vanus from hiir;
++-------+-----------+
+| nimi  | vanus     |
++-------+-----------+
+| piiks | 1-aastane | 
+| triip | 1-aastane | 
+| mustu | 2-aastane | 
+| troll | 3-aastane | 
+| rulli | 2-aastane | 
+| trips | 3-aastane | 
+| emma  | 3-aastane | 
+| donna | 1-aastane | 
++-------+-----------+
+8 rows in set (0.01 sec)
+
+
+13.(1p) Käivita järgmised kaks käsku:
+CREATE TABLE EMA (	Ema_ID integer(4) NOT NULL AUTO_INCREMENT,	Nimi varchar(40) NOT NULL, PRIMARY KEY(Ema_ID));
+INSERT INTO Ema (Nimi) VALUES ('Tups'), ('Taki'),('Tipsi');
+
+mysql> CREATE TABLE EMA (
+    -> Ema_ID integer(4) NOT NULL AUTO_INCREMENT,
+    -> Nimi varchar(40) NOT NULL,
+    -> PRIMARY KEY(Ema_ID));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO EMA (Nimi) VALUES ('Tups'), ('Taki'),('Tipsi');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+14.(5p)	Väljasta kõik tabeli Hiired andmed koos emade nimedega. 
+
+mysql> select * from hiir h, EMA e where h.ema_id = e.Ema_ID;
++----------+-------+------+------------+--------+--------+-------+
+| hiire_id | nimi  | kaal | synniaasta | ema_id | Ema_ID | Nimi  |
++----------+-------+------+------------+--------+--------+-------+
+|        1 | piiks |  120 |       2009 |      1 |      1 | Tups  | 
+|        2 | triip |   80 |       2009 |      2 |      2 | Taki  | 
+|        3 | mustu |   95 |       2008 |      3 |      3 | Tipsi | 
+|        4 | troll |  110 |       2007 |      1 |      1 | Tups  | 
+|        5 | rulli |  105 |       2008 |      1 |      1 | Tups  | 
+|        6 | trips |  130 |       2007 |      2 |      2 | Taki  | 
+|        7 | emma  |  120 |       2007 |      2 |      2 | Taki  | 
+|        9 | donna |  110 |       2009 |      3 |      3 | Tipsi | 
++----------+-------+------+------------+--------+--------+-------+
+8 rows in set (0.00 sec)
+
+
+15.(2p) Loo vaade HIIRE_EMAD, mis sisaldab eelmise päringu tulemust.
+
+mysql> create view hiire_emad as select h.hiire_id, h.nimi, h.kaal, h.synniaasta, h.ema_id, e.Nimi as ema_nimi from hiir h, EMA e where h.ema_id = e.Ema_ID;
+
+
+16.(5p) Väljasta iga hiireema kohta, mitu last tal on (Väljasta ema nimi, hiirelaste arv).	
+
+mysql> select e.Nimi, count(h.ema_id) as laste_arv from hiir h, EMA e where h.ema_id = e.Ema_ID group by e.Nimi;
++-------+-----------+
+| Nimi  | laste_arv |
++-------+-----------+
+| Taki  |         3 | 
+| Tipsi |         2 | 
+| Tups  |         3 | 
++-------+-----------+
+3 rows in set (0.00 sec)
+
+
+17.(2p) Muuda tabelit EMA lisades uue andmevälja Aadress varchar(50). 
+
+mysql> alter table EMA add column aadress varchar(50);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+18.(3p)	Lisa tabelisse EMA emade aadressid: Tups - Kelder Kopli 1 Tartu, Taki - II korrus Padja 12 Tallinn,Tipsi - Kelder Puu 15 Tartu 
+
+mysql> update EMA set aadress = 'kelder kolip 1 tartu' where Nimi = 'Tups';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update EMA set aadress = 'ii korrus padja 12 tallinn' where Nimi = 'Taki';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update EMA set aadress = 'kelder puu 15 tartu' where Nimi = 'Tipsi';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+19.(3p)	Väljasta hiirte nimed ja kaalud (kilogrammides). 
+
+mysql> select nimi, concat(kaal, "kg") as kaal from hiir;
++-------+-------+
+| nimi  | kaal  |
++-------+-------+
+| piiks | 120kg | 
+| triip | 80kg  | 
+| mustu | 95kg  | 
+| troll | 110kg | 
+| rulli | 105kg | 
+| trips | 130kg | 
+| emma  | 120kg | 
+| donna | 110kg | 
++-------+-------+
+8 rows in set (0.00 sec)
+
+
+20.(3p)	Väljasta erinevad sünniaastad ning palju igal aastal on hiiri sündinud.
+
+mysql> select synniaasta, count(synniaasta) from hiir group by synniaasta;
++------------+-------------------+
+| synniaasta | count(synniaasta) |
++------------+-------------------+
+|       2007 |                 3 | 
+|       2008 |                 2 | 
+|       2009 |                 3 | 
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+
+21.(5p)	Leia iga sünniaasta hiirte keskmine kaal.
+
+mysql> select synniaasta, avg(kaal) as keskmine_kaal from hiir group by synniaasta;
++------------+---------------+
+| synniaasta | keskmine_kaal |
++------------+---------------+
+|       2007 |      120.0000 | 
+|       2008 |      100.0000 | 
+|       2009 |      103.3333 | 
++------------+---------------+
+3 rows in set (0.00 sec)
+
+
+22.(3p) Väljasta kõige raskema hiire nimi, kaal synniaasta.
+
+mysql> select nimi, kaal, synniaasta from hiir where kaal = (select max(kaal) from hiir);
++-------+------+------------+
+| nimi  | kaal | synniaasta |
++-------+------+------------+
+| trips |  130 |       2007 | 
++-------+------+------------+
+1 row in set (0.00 sec)
+
+
+23.(5p)	Leia kõik keldris elavad hiired (väljasta hiire nimi, hiire ema nimi ja aadress).
+
+mysql> select h.nimi, e.Nimi as ema_nimi, e.aadress from hiir h, EMA e where h.ema_id = e.Ema_ID and aadress like '%kelder%';
++-------+----------+----------------------+
+| nimi  | ema_nimi | aadress              |
++-------+----------+----------------------+
+| piiks | Tups     | kelder kolip 1 tartu | 
+| mustu | Tipsi    | kelder puu 15 tartu  | 
+| troll | Tups     | kelder kolip 1 tartu | 
+| rulli | Tups     | kelder kolip 1 tartu | 
+| donna | Tipsi    | kelder puu 15 tartu  | 
++-------+----------+----------------------+
+5 rows in set (0.00 sec)
+
+24. Saada fail õpetaja meilile evely.vutt@khk.tartu.ee 

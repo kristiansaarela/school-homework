@@ -1,0 +1,69 @@
+create database kristiansaarela_is;
+use kristiansaarela_is;
+
+---------------
+
+tabelite loomine ning nende andmed
+
+create table a (a_nr int, tekst varchar(30));
+create table b (b_nr int, kuupaev varchar(30), a_nr int);
+
+select * from a;
++------+-------+
+| a_nr | tekst |
++------+-------+
+|    1 | NULL  |
+|    2 | NULL  |
+|    3 | NULL  |
+|    4 | NULL  |
+|    5 | NULL  |
++------+-------+
+
+
+select * from b;
++------+------------+------+
+| b_nr | kuupaev    | a_nr |
++------+------------+------+
+|   23 | 01.08.2008 |    3 |
+|   24 | 02.08.2008 |    3 |
+|   25 | 03.08.2008 |    2 |
+|   26 | 04.08.2008 |    5 |
+|   27 | 05.08.2008 |    5 |
++------+------------+------+
+
+---------------
+
+1. variant
+update a, b set a.tekst = concat_ws('', a.tekst, b.b_nr, ' ', b.kuupaev, ' / ') where a.a_nr = b.a_nr;
+
+select * from a;
++------+-----------------+
+| a_nr | tekst           |
++------+-----------------+
+|    1 | NULL            |
+|    2 | 25 03.08.2008 / |
+|    3 | 23 01.08.2008 / |
+|    4 | NULL            |
+|    5 | 26 04.08.2008 / |
++------+-----------------+
+
+concat võtab mitmed veerud ning 'liidab' need kokku
+
+---------------
+
+2. variant
+update a set a.tekst = (select group_concat(b_nr, ' ', kuupaev separator ' / ') from b where a.a_nr = b.a_nr group by a_nr);
+
+select * from a;
++------+-------------------------------+
+| a_nr | tekst                         |
++------+-------------------------------+
+|    1 | NULL                          |
+|    2 | 25 03.08.2008                 |
+|    3 | 23 01.08.2008 / 24 02.08.2008 |
+|    4 | NULL                          |
+|    5 | 26 04.08.2008 / 27 05.08.2008 |
++------+-------------------------------+
+
+group concat 'ühendab', juhul kui on mitu vastust, ning eraldab need seperator-iga üeldud märgiga. juhul kui on ainult üks siis ta vahemärki ei pane.
+andmed saadakse alampäringust.
