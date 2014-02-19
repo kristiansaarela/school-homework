@@ -1,153 +1,153 @@
 # ISESEISEV TÖÖ AINES ANDMEBAASIDE KASUTAMINE
-	## TÄHTAEG: 22.10.2010
-		Iseseisev töö tuleb saata õpetajale e-kirjaga.
+## TÄHTAEG: 22.10.2010
+	Iseseisev töö tuleb saata õpetajale e-kirjaga.
 
-	#### Töö vormistamine:
-		1. Näidata, millised tabelid loodi.
-		2. Näidata tabeleid esialgsete andmetega.
-		3. Missugused triger(-id) loodi.
-		4. Näidata andmebaasi erinevaid testimise tulemusi. Testi tulemused peaksid näitama, et hääletusssteem töötab korrektselt.
+#### Töö vormistamine:
+	1. Näidata, millised tabelid loodi.
+	2. Näidata tabeleid esialgsete andmetega.
+	3. Missugused triger(-id) loodi.
+	4. Näidata andmebaasi erinevaid testimise tulemusi. Testi tulemused peaksid näitama, et hääletusssteem töötab korrektselt.
 
 # ÜLESANNE:
 
-	1. Loo hääletussüsteem (andmebaas).
-		```SQL
-		create database kristiansaarela_vote;
-		```
-		*Query OK, 1 row affected (0.01 sec)*
+1. Loo hääletussüsteem (andmebaas).
+	```SQL
+	create database kristiansaarela_vote;
+	```
+	*Query OK, 1 row affected (0.01 sec)*
 
-		```SQL
-		create table haaletus (
-			h_id int not null auto_increment,
-			eesnimi varchar(15),
-			perenimi varchar(15),
-			haaletuse_aeg datetime,
-			otsus set('poolt', 'vastu'),
-			primary key(h_id)
-		);
-		```
-		*Query OK, 0 rows affected (0.01 sec)*
+	```SQL
+	create table haaletus (
+		h_id int not null auto_increment,
+		eesnimi varchar(15),
+		perenimi varchar(15),
+		haaletuse_aeg datetime,
+		otsus set('poolt', 'vastu'),
+		primary key(h_id)
+	);
+	```
+	*Query OK, 0 rows affected (0.01 sec)*
 
-		```SQL
-		create table tulemused (
-			id int auto_increment primary key,
-			haaletanute_arv int,
-			alguse_aeg datetime,
-			poolt int,
-			vastu int
-		);
-		```
-		*Query OK, 0 rows affected (0.01 sec)*
+	```SQL
+	create table tulemused (
+		id int auto_increment primary key,
+		haaletanute_arv int,
+		alguse_aeg datetime,
+		poolt int,
+		vastu int
+	);
+	```
+	*Query OK, 0 rows affected (0.01 sec)*
 
-		```SQL
-		create table logi(
-			h_id int,
-			haaletuse_aeg datetime,
-			otsus set('poolt', 'vastu'),
-			t_id int,
-			foreign key (h_id) references haaletus.h_id,
-			foreign key (t_id) references tulemused.id
-		);
-		```
-		*Query OK, 0 rows affected (0.00 sec)*
-
-
-	2. Hääletamises osalevad 11 inimest.
-		```SQL
-		select * from haaletus;
-		```
-
-		| h_id | eesnimi  | perenimi  | haaletuse_aeg       | otsus |
-		|-----:|----------|-----------|---------------------|------:|
-		|    1 | jyrgen   | luik      | 0000-00-00 00:00:00 | NULL  |
-		|    2 | toomas   | sepp      | 0000-00-00 00:00:00 | NULL  |
-		|    3 | kalle    | kulp      | 0000-00-00 00:00:00 | NULL  |
-		|    4 | siiri    | tulp      | 0000-00-00 00:00:00 | NULL  |
-		|    5 | marge    | simpson   | 0000-00-00 00:00:00 | NULL  |
-		|    6 | chris    | chriffin  | 0000-00-00 00:00:00 | NULL  |
-		|    7 | peter    | chriffin  | 0000-00-00 00:00:00 | NULL  |
-		|    8 | homer    | simpson   | 0000-00-00 00:00:00 | NULL  |
-		|    9 | joe      | cleveland | 0000-00-00 00:00:00 | NULL  |
-		|   10 | jyri     | ratas     | 0000-00-00 00:00:00 | NULL  |
-		|   11 | kuningas | kristian  | 0000-00-00 00:00:00 | NULL  |
-
-		*11 rows in set (0.01 sec)*
+	```SQL
+	create table logi(
+		h_id int,
+		haaletuse_aeg datetime,
+		otsus set('poolt', 'vastu'),
+		t_id int,
+		foreign key (h_id) references haaletus.h_id,
+		foreign key (t_id) references tulemused.id
+	);
+	```
+	*Query OK, 0 rows affected (0.00 sec)*
 
 
-	3. Üks hääletamine kestab 5 minutit ja hääletaja saab olla kas 'poolt' või 'vastu'.
-		```SQL
-		select * from tulemused;
-		```
+2. Hääletamises osalevad 11 inimest.
+	```SQL
+	select * from haaletus;
+	```
 
-		| id | haaletanute_arv | alguse_aeg          | poolt | vastu |
-		|---:|----------------:|---------------------|------:|------:|
-		|  1 |            NULL | 2010-10-15 11:05:21 |  NULL |  NULL |
+	| h_id | eesnimi  | perenimi  | haaletuse_aeg       | otsus |
+	|-----:|----------|-----------|---------------------|------:|
+	|    1 | jyrgen   | luik      | 0000-00-00 00:00:00 | NULL  |
+	|    2 | toomas   | sepp      | 0000-00-00 00:00:00 | NULL  |
+	|    3 | kalle    | kulp      | 0000-00-00 00:00:00 | NULL  |
+	|    4 | siiri    | tulp      | 0000-00-00 00:00:00 | NULL  |
+	|    5 | marge    | simpson   | 0000-00-00 00:00:00 | NULL  |
+	|    6 | chris    | chriffin  | 0000-00-00 00:00:00 | NULL  |
+	|    7 | peter    | chriffin  | 0000-00-00 00:00:00 | NULL  |
+	|    8 | homer    | simpson   | 0000-00-00 00:00:00 | NULL  |
+	|    9 | joe      | cleveland | 0000-00-00 00:00:00 | NULL  |
+	|   10 | jyri     | ratas     | 0000-00-00 00:00:00 | NULL  |
+	|   11 | kuningas | kristian  | 0000-00-00 00:00:00 | NULL  |
 
-		*1 row in set (0.00 sec)*
+	*11 rows in set (0.01 sec)*
 
-		```SQL
-		create trigger haaleta before update on haaletus
 
-		for each row
+3. Üks hääletamine kestab 5 minutit ja hääletaja saab olla kas 'poolt' või 'vastu'.
+	```SQL
+	select * from tulemused;
+	```
+
+	| id | haaletanute_arv | alguse_aeg          | poolt | vastu |
+	|---:|----------------:|---------------------|------:|------:|
+	|  1 |            NULL | 2010-10-15 11:05:21 |  NULL |  NULL |
+
+	*1 row in set (0.00 sec)*
+
+	```SQL
+	create trigger haaleta before update on haaletus
+
+	for each row
+
+	begin
+
+		if date_add((select alguse_aeg from tulemused), interval 5 minute) > now() then
 
 		begin
 
-			if date_add((select alguse_aeg from tulemused), interval 5 minute) > now() then
+			if OLD.otsus != NEW.otsus or OLD.otsus is null then
 
 			begin
 
-				if OLD.otsus != NEW.otsus or OLD.otsus is null then
-
-				begin
-
-					insert into logi values (OLD.h_id, now(), NEW.otsus, null);
+				insert into logi values (OLD.h_id, now(), NEW.otsus, null);
 
 
 
-					if OLD.otsus is null then
+				if OLD.otsus is null then
 
-						update tulemused set haaletanute_arv = haaletanute_arv+1 where id = 1;
-
-					end if;
-
-
-
-					if OLD.otsus = 'poolt' then
-
-						update tulemused set poolt = poolt-1 where id = 1;
-
-					elseif OLD.otsus = 'vastu' then
-
-						update tulemused set poolt = poolt+1 where id = 1;
-
-					end if;
-
-
-
-					if NEW.otsus = 'poolt' then
-
-						update tulemused set poolt = poolt+1 where id = 1;
-
-					elseif NEW.otsus = 'vastu' then
-
-						update tulemused set vastu = vastu+1 where id = 1;
-
-					end if;
-
-				end;
+					update tulemused set haaletanute_arv = haaletanute_arv+1 where id = 1;
 
 				end if;
 
-			else
 
-				insert into logi values (OLD.h_id, now(), NEW.otsus, null);
+
+				if OLD.otsus = 'poolt' then
+
+					update tulemused set poolt = poolt-1 where id = 1;
+
+				elseif OLD.otsus = 'vastu' then
+
+					update tulemused set poolt = poolt+1 where id = 1;
+
+				end if;
+
+
+
+				if NEW.otsus = 'poolt' then
+
+					update tulemused set poolt = poolt+1 where id = 1;
+
+				elseif NEW.otsus = 'vastu' then
+
+					update tulemused set vastu = vastu+1 where id = 1;
+
+				end if;
 
 			end;
 
 			end if;
 
-		end;//
-		```
+		else
+
+			insert into logi values (OLD.h_id, now(), NEW.otsus, null);
+
+		end;
+
+		end if;
+
+	end;//
+	```
 
 
 mysql> delimiter //
