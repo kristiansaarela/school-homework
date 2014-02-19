@@ -23,7 +23,7 @@ GROUP BY
 	li.Nimi;
 ```
 | Nimi    | noorim |
-|:--------+-------:|
+|:--------|-------:|
 | Tallinn |     13 |
 | Tartu   |     13 |
 
