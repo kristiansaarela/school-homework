@@ -1,0 +1,390 @@
+Kordamine arvestustööks.
+
+kopeeri iga ülesande juurde vastav käsk ja tulemus.
+
+1.	Kasutades MySql’i loo andmebaasi andmetabel LAPS, milles on järgmised andmeväljad:
+
+	LapsID – primaarvõtme väli ja automaatselt suurenev ning ei tohi olla null,
+	Nimi tekstiline väli ja väärtus ei tohi olla null,
+	Pikkus täisarv,
+	Synniaasta täisarv,
+	SynniLinn täisarv.
+
+mysql>
+	CREATE TABLE laps (
+		lapsID IN NOT NULL auto_increment primary key,
+		nimi VARCHAR(20) NOT NULL,
+		pikkus INT,
+		synniaasta INT,
+		synnilinn INT
+	);
+Query OK, 0 rows affected (0.01 sec)
+
+2.	Lisa tabelisse järgnevalt toodud andmed
+
+	Nimi	Pikkus	Synniaasta	SynniLinn
+	Juku	155	1997		1
+	Kati	158	1997		2
+	Mati	164	1995		2
+	Siiri	153	1996		1
+	Madis	174	1995		1
+	Siim	163	1997		2
+
+mysql> insert into laps (nimi, pikkus, synniaasta, synnilinn) values ('juku', 155, 1997, 1), ('kati', 158, 1997, 2), ('mati', 164, 1995, 2), ('siiri', 153, 1996, 1), ('madis', 174
+
+, 1995, 1), ('siim', 163, 1997, 2);
+
+Query OK, 6 rows affected (0.00 sec)
+
+Records: 6  Duplicates: 0  Warnings: 0
+
+
+
+
+
+3.	Järjesta lapsed pikkuse järgi kasvavalt (väljasta nimi ja pikkus).
+
+mysql> select nimi, pikkus from laps order by pikkus asc;
+
++-------+--------+
+
+| nimi  | pikkus |
+
++-------+--------+
+
+| siiri |    153 |
+
+| juku  |    155 |
+
+| kati  |    158 |
+
+| siim  |    163 |
+
+| mati  |    164 |
+
+| madis |    174 |
+
++-------+--------+
+
+6 rows in set (0.00 sec)
+
+
+
+
+
+4.	Leia laste keskmine pikkus.
+
+mysql> select avg(pikkus) as keskmine_pikkus from laps;
+
++-----------------+
+
+| keskmine_pikkus |
+
++-----------------+
+
+|        161.1667 |
+
++-----------------+
+
+1 row in set (0.00 sec)
+
+
+
+
+
+5.	Ümarda eelnevalt saadud vastust nii, et oleks kaks kohta peale koma.
+
+mysql> select round(avg(pikkus), 2) as keskmine_pikkus from laps;
+
++-----------------+
+
+| keskmine_pikkus |
+
++-----------------+
+
+|          161.17 |
+
++-----------------+
+
+1 row in set (0.00 sec)
+
+6.	Leia laste vanused.
+
+mysql> select nimi, year(curdate())-synnaasta as vanus from laps;
+
++-------+-------+
+
+| nimi  | vanus |
+
++-------+-------+
+
+| juku  |    13 |
+
+| kati  |    13 |
+
+| mati  |    15 |
+
+| siiri |    14 |
+
+| madis |    15 |
+
+| siim  |    13 |
+
++-------+-------+
+
+6 rows in set (0.00 sec)
+
+
+
+
+
+7.	Leia laste keskmine vanus (ümarda täisarvuni).
+
+mysql> select round(avg(year(curdate())-synnaasta), 0) as keskmine_vanus from laps;
+
++----------------+
+
+| keskmine_vanus |
+
++----------------+
+
+|             14 |
+
++----------------+
+
+1 row in set (0.00 sec)
+
+
+
+8.	Kes lastest on keskmisest vanemad? (Nimed ja vanused)
+
+mysql> select nimi, year(curdate())-synnaasta as vanus from laps where (year(curdate())-synnaasta) > (select round(avg(year(curdate())-synnaasta), 0) from laps);
+
++-------+-------+
+
+| nimi  | vanus |
+
++-------+-------+
+
+| mati  |    15 |
+
+| madis |    15 |
+
++-------+-------+
+
+2 rows in set (0.00 sec)
+
+
+
+
+
+9.	Väljasta erinevad sünniaastad ning palju igal aastal lapsi on sündinud.
+
+mysql> select synnaasta, count(synnaasta) as nr from laps group by synnaasta;
+
++-----------+----+
+
+| synnaasta | nr |
+
++-----------+----+
+
+|      1995 |  2 |
+
+|      1996 |  1 |
+
+|      1997 |  3 |
+
++-----------+----+
+
+3 rows in set (0.00 sec)
+
+
+
+10.	Väljasta laste nimed ja pikkused (meetrites).
+
+mysql> select nimi, concat(round(pikkus/100, 2), 'm') as pikkus_m from laps;
+
++-------+----------+
+
+| nimi  | pikkus_m |
+
++-------+----------+
+
+| juku  | 1.55m    |
+
+| kati  | 1.58m    |
+
+| mati  | 1.64m    |
+
+| siiri | 1.53m    |
+
+| madis | 1.74m    |
+
+| siim  | 1.63m    |
+
++-------+----------+
+
+6 rows in set (0.00 sec)
+
+
+
+
+
+11.	Leia kõige pikem laps.
+
+mysql> select max(pikkus) from laps;
+
++-------------+
+
+| max(pikkus) |
+
++-------------+
+
+|         174 |
+
++-------------+
+
+1 row in set (0.00 sec)
+
+
+
+12.	Muuda Siimu sünniaasta 1996.
+
+mysql> update laps set synnaasta = 1996 where nimi = 'siim';
+
+
+
+13.	Lisa järgmine laps: Ats pikkusega 163, sünniaasta 1996 ja sünnilinn 1 tabelisse LAPS.
+
+mysql> insert into laps (nimi, pikkus, synnaasta, synnilinn) values ('ats', 163, 1996, 1);
+
+Query OK, 1 row affected (0.00 sec)
+
+
+
+
+
+14.	Leia iga sünniaasta laste keskmine pikkus.
+
+mysql> select synnaasta, avg(pikkus) as keskmine_pikkus from laps group by synnaasta;
+
++-----------+-----------------+
+
+| synnaasta | keskmine_pikkus |
+
++-----------+-----------------+
+
+|      1995 |        169.0000 |
+
+|      1996 |        159.6667 |
+
+|      1997 |        156.5000 |
+
++-----------+-----------------+
+
+3 rows in set (0.00 sec)
+
+
+
+15.	Käivita MySQl’is failis Linn.txt olevad käsud  – tulemusena peaks andmebaasi tekkima tabel LINN.
+
+ok
+
+16.	Väljasta kõik tabeli LAPS andmed koos sünnilinnade nimedega.
+
+mysql> select * from laps, LINN where synnilinn = LinnID;
+
++--------+-------+--------+-----------+-----------+--------+---------+
+
+| lapsID | nimi  | pikkus | synnaasta | synnilinn | LinnID | Nimi    |
+
++--------+-------+--------+-----------+-----------+--------+---------+
+
+|      1 | juku  |    155 |      1997 |         1 |      1 | Tallinn |
+
+|      2 | kati  |    158 |      1997 |         2 |      2 | Tartu   |
+
+|      3 | mati  |    164 |      1995 |         2 |      2 | Tartu   |
+
+|      4 | siiri |    153 |      1996 |         1 |      1 | Tallinn |
+
+|      5 | madis |    174 |      1995 |         1 |      1 | Tallinn |
+
+|      6 | siim  |    163 |      1996 |         2 |      2 | Tartu   |
+
+|      7 | ats   |    163 |      1996 |         1 |      1 | Tallinn |
+
++--------+-------+--------+-----------+-----------+--------+---------+
+
+7 rows in set (0.00 sec)
+
+
+
+17.	Väljasta iga linna kohta, mitu last on selles linnas sündinud (linna nimi, laste arv).
+
+mysql> select li.Nimi, count(l.synnilinn) as kokku from laps l, LINN li where l.synnilinn = li.LinnID group by li.Nimi;
+
++---------+-------+
+
+| Nimi    | kokku |
+
++---------+-------+
+
+| Tallinn |     4 |
+
+| Tartu   |     3 |
+
++---------+-------+
+
+2 rows in set (0.00 sec)
+
+
+
+18.	Muuda tabelit Linn lisades uus andmeväli Elanike_arve täisarv.
+
+mysql> alter table LINN add column elanike_arv int;
+
+Query OK, 2 rows affected (0.02 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+19.	Lisa Linna tabelisse elanike arvud: Tallinn 400 000 elanikku, Tartu 100 000 elanikku.
+
+mysql> update LINN set elanike_arv = 400000 where nimi = 'Tallinn';
+
+Query OK, 1 row affected (0.00 sec)
+
+Rows matched: 1  Changed: 1  Warnings:
+
+mysql> update LINN set elanike_arv = 100000 where nimi = 'Tartu';
+
+Query OK, 1 row affected (0.00 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
+20.	Teata iga linna kohta selle linna kõige noorema lapse nimi.
+mysql>
+```SQL
+SELECT
+	li.Nimi,
+	MIN(YEAR(CURDATE()) - synnaasta) AS noorim
+FROM
+	laps l,
+	LINN li
+WHERE
+	l.synnilinn = li.LinnID
+GROUP BY
+	li.Nimi;
+```
++---------+--------+
+| Nimi    | noorim |
++---------+--------+
+| Tallinn |     13 |
+| Tartu   |     13 |
++---------+--------+
+
+2 rows in set (0.00 sec)
