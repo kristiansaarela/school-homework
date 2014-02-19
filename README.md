@@ -9,7 +9,7 @@ Tartu KHK
 2008-2011
 
 # Markdown test
-1. ###Teata iga linna kohta selle linna kõige noorema lapse nimi.
+1. Teata iga linna kohta selle linna kõige noorema lapse nimi.
 ```SQL
 SELECT
 	li.Nimi,
